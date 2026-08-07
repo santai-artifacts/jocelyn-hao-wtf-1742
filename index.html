@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Programming Fundamentals</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0f1117;
+      --surface: #181c27;
+      --surface2: #1e2335;
+      --border: #2a3050;
+      --primary: #6c8ef7;
+      --primary-dim: rgba(108,142,247,0.12);
+      --accent: #a78bfa;
+      --green: #34d399;
+      --yellow: #fbbf24;
+      --red: #f87171;
+      --text: #e2e8f0;
+      --text-muted: #8892b0;
+      --text-dim: #4a5568;
+      --radius: 12px;
+      --radius-sm: 8px;
+      --mono: 'JetBrains Mono', monospace;
+      --sans: 'Inter', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* NAV */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(15,17,23,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
+    }
+    .nav-logo {
+      font-family: var(--mono);
+      font-size: 1rem;
+      color: var(--primary);
+      font-weight: 500;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .nav-logo span { color: var(--text-muted); }
+    .nav-links { display: flex; gap: 2rem; }
+    .nav-links a {
+      color: var(--text-muted); text-decoration: none;
+      font-size: 0.875rem; font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-badge {
+      background: var(--primary-dim);
+      color: var(--primary);
+      font-size: 0.75rem; font-weight: 600;
+      padding: 4px 10px; border-radius: 20px;
+      border: 1px solid rgba(108,142,247,0.2);
+    }
+
+    /* HERO */
+    .hero {
+      padding: 6rem 2rem 5rem;
+      max-width: 900px; margin: 0 auto;
+      text-align: center;
+    }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--primary-dim); color: var(--primary);
+      border: 1px solid rgba(108,142,247,0.25);
+      padding: 6px 14px; border-radius: 20px;
+      font-size: 0.8rem; font-weight: 600;
+      margin-bottom: 1.5rem; letter-spacing: 0.05em; text-transform: uppercase;
+    }
+    .hero-tag::before { content: '◈'; }
+    .hero h1 {
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      font-weight: 700; line-height: 1.15;
+      margin-bottom: 1.25rem;
+      background: linear-gradient(135deg, #fff 0%, var(--primary) 60%, var(--accent) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero p {
+      font-size: 1.125rem; color: var(--text-muted);
+      max-width: 580px; margin: 0 auto 2.5rem;
+      line-height: 1.75;
+    }
+    .hero-cta {
+      display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+    }
+    .btn-primary {
+      background: var(--primary); color: #fff;
+      border: none; padding: 12px 28px;
+      border-radius: var(--radius-sm); font-size: 0.95rem;
+      font-weight: 600; cursor: pointer;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+    .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+    .btn-ghost {
+      background: transparent; color: var(--text-muted);
+      border: 1px solid var(--border); padding: 12px 28px;
+      border-radius: var(--radius-sm); font-size: 0.95rem;
+      font-weight: 600; cursor: pointer; text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--primary); color: var(--text); }
+
+    /* STATS BAR */
+    .stats {
+      max-width: 900px; margin: 0 auto 5rem;
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      border: 1px solid var(--border); border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .stat {
+      padding: 1.5rem 2rem; text-align: center;
+      border-right: 1px solid var(--border);
+    }
+    .stat:last-child { border-right: none; }
+    .stat-num {
+      font-size: 2rem; font-weight: 700; color: var(--primary);
+      font-family: var(--mono);
+    }
+    .stat-label { font-size: 0.8rem; color: var(--text-muted); margin-top: 2px; }
+
+    /* SECTIONS WRAPPER */
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+
+    /* SECTION HEADER */
+    .section-header { margin-bottom: 2.5rem; }
+    .section-tag {
+      font-family: var(--mono); font-size: 0.75rem;
+      color: var(--primary); font-weight: 500; margin-bottom: 0.5rem;
+      letter-spacing: 0.05em;
+    }
+    .section-header h2 {
+      font-size: 1.75rem; font-weight: 700; margin-bottom: 0.5rem;
+    }
+    .section-header p { color: var(--text-muted); font-size: 0.95rem; }
+
+    /* TOPIC GRID */
+    .topics { padding: 5rem 0; }
+    .topics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.25rem;
+    }
+    .topic-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.5rem;
+      cursor: pointer;
+      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+    .topic-card:hover {
+      border-color: var(--primary);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 30px rgba(108,142,247,0.1);
+    }
+    .topic-card.active {
+      border-color: var(--primary);
+      background: linear-gradient(135deg, var(--surface) 0%, rgba(108,142,247,0.06) 100%);
+    }
+    .topic-icon {
+      width: 44px; height: 44px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.25rem; margin-bottom: 1rem;
+    }
+    .topic-card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 0.4rem; }
+    .topic-card p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; }
+    .topic-meta {
+      display: flex; align-items: center; gap: 0.5rem;
+      margin-top: 1rem; font-size: 0.75rem; color: var(--text-dim);
+    }
+    .difficulty {
+      padding: 2px 8px; border-radius: 20px; font-weight: 600; font-size: 0.7rem;
+    }
+    .diff-beginner { background: rgba(52,211,153,0.12); color: var(--green); }
+    .diff-intermediate { background: rgba(251,191,36,0.12); color: var(--yellow); }
+    .diff-advanced { background: rgba(248,113,113,0.12); color: var(--red); }
+
+    /* DETAIL PANEL */
+    .detail-panel {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 2rem;
+      margin-top: 2rem; display: none;
+      animation: fadeIn 0.25s ease;
+    }
+    .detail-panel.visible { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+    .detail-header {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      margin-bottom: 1.5rem; gap: 1rem;
+    }
+    .detail-header h3 { font-size: 1.3rem; font-weight: 700; }
+    .detail-close {
+      background: none; border: 1px solid var(--border); color: var(--text-muted);
+      width: 32px; height: 32px; border-radius: 8px;
+      cursor: pointer; font-size: 1rem; flex-shrink: 0;
+      transition: border-color 0.2s; display: flex; align-items: center; justify-content: center;
+    }
+    .detail-close:hover { border-color: var(--primary); color: var(--text); }
+    .detail-body { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .detail-desc { color: var(--text-muted); line-height: 1.7; font-size: 0.9rem; }
+    .detail-desc h4 { color: var(--text); font-size: 0.9rem; margin-bottom: 0.5rem; }
+    .key-concepts { list-style: none; }
+    .key-concepts li {
+      display: flex; align-items: baseline; gap: 8px;
+      font-size: 0.85rem; color: var(--text-muted); padding: 5px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .key-concepts li:last-child { border-bottom: none; }
+    .key-concepts li::before { content: '→'; color: var(--primary); font-size: 0.75rem; flex-shrink: 0; }
+
+    /* CODE BLOCK */
+    .code-block {
+      background: #0a0c14; border: 1px solid var(--border);
+      border-radius: var(--radius-sm); padding: 1.25rem;
+      margin-top: 1rem; overflow-x: auto;
+    }
+    .code-block-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 0.75rem;
+    }
+    .code-lang {
+      font-family: var(--mono); font-size: 0.7rem;
+      color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.1em;
+    }
+    .code-copy {
+      background: none; border: none; color: var(--text-dim);
+      font-size: 0.75rem; cursor: pointer; font-family: var(--sans);
+      transition: color 0.2s;
+    }
+    .code-copy:hover { color: var(--primary); }
+    pre {
+      font-family: var(--mono); font-size: 0.82rem;
+      line-height: 1.7; white-space: pre; color: var(--text);
+    }
+    .kw { color: #c792ea; }
+    .fn { color: #82aaff; }
+    .str { color: #c3e88d; }
+    .num { color: #f78c6c; }
+    .cmt { color: #546e7a; font-style: italic; }
+    .type { color: #ffcb6b; }
+
+    /* QUIZ SECTION */
+    .quiz-section { padding: 5rem 0; }
+    .quiz-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 2rem; max-width: 700px;
+    }
+    .quiz-progress {
+      display: flex; gap: 6px; margin-bottom: 1.5rem;
+    }
+    .quiz-dot {
+      height: 4px; flex: 1; border-radius: 2px;
+      background: var(--border); transition: background 0.3s;
+    }
+    .quiz-dot.done { background: var(--primary); }
+    .quiz-dot.current { background: var(--accent); }
+    .quiz-q { font-size: 1rem; font-weight: 600; margin-bottom: 1.25rem; line-height: 1.5; }
+    .quiz-options { display: flex; flex-direction: column; gap: 0.6rem; }
+    .quiz-opt {
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); padding: 12px 16px;
+      cursor: pointer; font-size: 0.875rem; text-align: left;
+      transition: border-color 0.2s, background 0.2s;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .quiz-opt:hover:not(:disabled) { border-color: var(--primary); background: var(--primary-dim); }
+    .quiz-opt.correct { border-color: var(--green); background: rgba(52,211,153,0.1); }
+    .quiz-opt.wrong { border-color: var(--red); background: rgba(248,113,113,0.1); }
+    .quiz-opt:disabled { cursor: default; }
+    .opt-indicator {
+      width: 24px; height: 24px; border-radius: 6px;
+      background: var(--border); display: flex; align-items: center;
+      justify-content: center; font-size: 0.7rem; font-weight: 700;
+      color: var(--text-muted); flex-shrink: 0;
+    }
+    .quiz-opt.correct .opt-indicator { background: var(--green); color: #fff; }
+    .quiz-opt.wrong .opt-indicator { background: var(--red); color: #fff; }
+    .quiz-feedback {
+      margin-top: 1rem; padding: 12px 16px;
+      border-radius: var(--radius-sm); font-size: 0.875rem;
+      display: none;
+    }
+    .quiz-feedback.show { display: block; }
+    .quiz-feedback.correct-fb { background: rgba(52,211,153,0.1); color: var(--green); border: 1px solid rgba(52,211,153,0.2); }
+    .quiz-feedback.wrong-fb { background: rgba(248,113,113,0.1); color: var(--red); border: 1px solid rgba(248,113,113,0.2); }
+    .quiz-nav { margin-top: 1.25rem; display: flex; justify-content: flex-end; }
+    .quiz-score {
+      text-align: center; padding: 2rem;
+    }
+    .score-num {
+      font-size: 3rem; font-weight: 700; font-family: var(--mono);
+      color: var(--primary); line-height: 1;
+    }
+    .score-label { color: var(--text-muted); margin-top: 0.5rem; margin-bottom: 1.5rem; }
+
+    /* ROADMAP */
+    .roadmap { padding: 5rem 0; }
+    .roadmap-track {
+      position: relative; padding-left: 2rem;
+    }
+    .roadmap-track::before {
+      content: ''; position: absolute; left: 7px; top: 8px; bottom: 8px;
+      width: 2px; background: linear-gradient(to bottom, var(--primary), var(--accent));
+      border-radius: 2px;
+    }
+    .roadmap-item {
+      position: relative; margin-bottom: 2rem;
+    }
+    .roadmap-dot {
+      position: absolute; left: -2rem; top: 4px;
+      width: 16px; height: 16px; border-radius: 50%;
+      border: 2px solid var(--primary); background: var(--bg);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .roadmap-dot.done { background: var(--primary); }
+    .roadmap-dot.done::after { content: '✓'; color: #fff; font-size: 8px; font-weight: 700; }
+    .roadmap-content {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); padding: 1.25rem 1.5rem;
+      cursor: pointer; transition: border-color 0.2s;
+    }
+    .roadmap-content:hover { border-color: var(--primary); }
+    .roadmap-top { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+    .roadmap-title { font-weight: 600; font-size: 0.95rem; }
+    .roadmap-duration { font-size: 0.75rem; color: var(--text-dim); font-family: var(--mono); }
+    .roadmap-tags { display: flex; gap: 6px; margin-top: 0.6rem; flex-wrap: wrap; }
+    .tag {
+      padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 500;
+      background: var(--surface2); color: var(--text-muted); border: 1px solid var(--border);
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem;
+      text-align: center;
+      color: var(--text-dim);
+      font-size: 0.8rem;
+      margin-top: 4rem;
+    }
+    footer a { color: var(--primary); text-decoration: none; }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      nav { padding: 0 1rem; }
+      .nav-links { display: none; }
+      .stats { grid-template-columns: 1fr; }
+      .stat { border-right: none; border-bottom: 1px solid var(--border); }
+      .stat:last-child { border-bottom: none; }
+      .detail-body { grid-template-columns: 1fr; }
+      .hero { padding: 4rem 1.5rem 3rem; }
+      .container { padding: 0 1.25rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; animation: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo"><code>&lt;/&gt;</code> <span>prog</span>fundamentals</div>
+  <div class="nav-links">
+    <a href="#topics">Topics</a>
+    <a href="#quiz">Quiz</a>
+    <a href="#roadmap">Roadmap</a>
+  </div>
+  <span class="nav-badge">Free & Open</span>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-tag">Learn to code, the right way</div>
+  <h1>Master the Building Blocks of Programming</h1>
+  <p>From variables to algorithms — a concise, interactive guide to core programming concepts every developer needs to know.</p>
+  <div class="hero-cta">
+    <a href="#topics" class="btn-primary">Explore Topics</a>
+    <a href="#quiz" class="btn-ghost">Test Your Knowledge</a>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="container">
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-num">8</div>
+      <div class="stat-label">Core Topics</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">10</div>
+      <div class="stat-label">Quiz Questions</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">∞</div>
+      <div class="stat-label">Things to Build</div>
+    </div>
+  </div>
+</div>
+
+<!-- TOPICS -->
+<section class="topics" id="topics">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">// 01 — core concepts</div>
+      <h2>Fundamental Topics</h2>
+      <p>Click any card to explore the concept with examples and key takeaways.</p>
+    </div>
+    <div class="topics-grid" id="topicsGrid"></div>
+    <div class="detail-panel" id="detailPanel">
+      <div class="detail-header">
+        <div>
+          <h3 id="detailTitle"></h3>
+          <div id="detailMeta" style="margin-top:6px"></div>
+        </div>
+        <button class="detail-close" onclick="closeDetail()">✕</button>
+      </div>
+      <div class="detail-body">
+        <div>
+          <div class="detail-desc" id="detailDesc"></div>
+          <div style="margin-top:1.5rem">
+            <h4 style="color:var(--text);font-size:.85rem;margin-bottom:.75rem">Key Concepts</h4>
+            <ul class="key-concepts" id="detailConcepts"></ul>
+          </div>
+        </div>
+        <div>
+          <div class="code-block">
+            <div class="code-block-header">
+              <span class="code-lang">example</span>
+              <button class="code-copy" onclick="copyCode(this)">copy</button>
+            </div>
+            <pre id="detailCode"></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUIZ -->
+<section class="quiz-section" id="quiz">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">// 02 — test yourself</div>
+      <h2>Quick Knowledge Check</h2>
+      <p>10 questions across all core fundamentals. No account needed.</p>
+    </div>
+    <div class="quiz-card">
+      <div class="quiz-progress" id="quizProgress"></div>
+      <div id="quizContent"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ROADMAP -->
+<section class="roadmap" id="roadmap">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">// 03 — your path</div>
+      <h2>Learning Roadmap</h2>
+      <p>A suggested order for working through programming fundamentals from zero to confident.</p>
+    </div>
+    <div class="roadmap-track" id="roadmapTrack"></div>
+  </div>
+</section>
+
+<footer>
+  Built for learners, by learners. &nbsp;·&nbsp; Open source &nbsp;·&nbsp; No tracking
+</footer>
+
+<script>
+  // ─── DATA ───────────────────────────────────────────────────────────────────
+
+  const topics = [
+    {
+      id: 'variables',
+      icon: '📦', iconBg: 'rgba(108,142,247,0.15)',
+      title: 'Variables & Data Types',
+      short: 'Store and manage information in your programs.',
+      difficulty: 'beginner',
+      minutes: '10 min read',
+      desc: `Variables are named containers that hold values. Every piece of data in a program lives in a variable. Data types tell the computer what kind of value is stored — a number, text, true/false, or more complex structures.`,
+      concepts: ['Integers & floats', 'Strings (text)', 'Booleans', 'Type inference', 'Constants vs variables', 'Null / undefined'],
+      code: `<span class="cmt">// Variables store data</span>
+<span class="kw">let</span> name = <span class="str">"Alice"</span>;        <span class="cmt">// string</span>
+<span class="kw">let</span> age = <span class="num">28</span>;           <span class="cmt">// integer</span>
+<span class="kw">let</span> score = <span class="num">98.5</span>;       <span class="cmt">// float</span>
+<span class="kw">let</span> isActive = <span class="kw">true</span>;   <span class="cmt">// boolean</span>
+<span class="kw">const</span> PI = <span class="num">3.14159</span>;    <span class="cmt">// constant</span>
+
+<span class="cmt">// Reassign a variable</span>
+age = <span class="num">29</span>;
+<span class="fn">console</span>.<span class="fn">log</span>(name, age); <span class="cmt">// Alice 29</span>`
+    },
+    {
+      id: 'control-flow',
+      icon: '🔀', iconBg: 'rgba(167,139,250,0.15)',
+      title: 'Control Flow',
+      short: 'Make decisions and branch program logic.',
+      difficulty: 'beginner',
+      minutes: '12 min read',
+      desc: `Control flow determines the order in which statements execute. With conditionals (if/else) your program can make decisions. Switch statements handle multiple branches cleanly.`,
+      concepts: ['if / else if / else', 'Comparison operators', 'Logical operators (&&, ||)', 'Switch statements', 'Ternary operator', 'Short-circuit evaluation'],
+      code: `<span class="kw">let</span> score = <span class="num">82</span>;
+
+<span class="kw">if</span> (score >= <span class="num">90</span>) {
+  <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"A"</span>);
+} <span class="kw">else if</span> (score >= <span class="num">80</span>) {
+  <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"B"</span>);   <span class="cmt">// ← runs</span>
+} <span class="kw">else</span> {
+  <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"C or below"</span>);
+}
+
+<span class="cmt">// Ternary shorthand</span>
+<span class="kw">const</span> label = score >= <span class="num">60</span>
+  ? <span class="str">"Pass"</span> : <span class="str">"Fail"</span>; <span class="cmt">// "Pass"</span>`
+    },
+    {
+      id: 'loops',
+      icon: '🔁', iconBg: 'rgba(52,211,153,0.15)',
+      title: 'Loops & Iteration',
+      short: 'Repeat actions without repeating code.',
+      difficulty: 'beginner',
+      minutes: '10 min read',
+      desc: `Loops execute a block of code multiple times. Use for loops when you know the count, while loops when you don't, and for...of / forEach for iterating collections.`,
+      concepts: ['for loop', 'while loop', 'do...while', 'for...of (arrays)', 'break & continue', 'Infinite loop pitfalls'],
+      code: `<span class="cmt">// Count 1 to 5</span>
+<span class="kw">for</span> (<span class="kw">let</span> i = <span class="num">1</span>; i <= <span class="num">5</span>; i++) {
+  <span class="fn">console</span>.<span class="fn">log</span>(i);
+}
+
+<span class="cmt">// Loop over an array</span>
+<span class="kw">const</span> fruits = [<span class="str">"apple"</span>, <span class="str">"mango"</span>, <span class="str">"grape"</span>];
+<span class="kw">for</span> (<span class="kw">const</span> fruit <span class="kw">of</span> fruits) {
+  <span class="fn">console</span>.<span class="fn">log</span>(fruit);
+}
+
+<span class="cmt">// While loop</span>
+<span class="kw">let</span> n = <span class="num">10</span>;
+<span class="kw">while</span> (n > <span class="num">0</span>) { n -= <span class="num">3</span>; }
+<span class="fn">console</span>.<span class="fn">log</span>(n); <span class="cmt">// -2</span>`
+    },
+    {
+      id: 'functions',
+      icon: '⚙️', iconBg: 'rgba(251,191,36,0.15)',
+      title: 'Functions',
+      short: 'Package reusable logic into named blocks.',
+      difficulty: 'beginner',
+      minutes: '15 min read',
+      desc: `Functions are the primary building block of any program. They take inputs (parameters), do work, and return outputs. Good functions do one thing well and have a clear name.`,
+      concepts: ['Parameters & arguments', 'Return values', 'Arrow functions', 'Default parameters', 'Scope & closures', 'Pure vs impure functions'],
+      code: `<span class="cmt">// Classic function</span>
+<span class="kw">function</span> <span class="fn">greet</span>(name) {
+  <span class="kw">return</span> <span class="str">`Hello, ${name}!`</span>;
+}
+
+<span class="cmt">// Arrow function</span>
+<span class="kw">const</span> <span class="fn">square</span> = (n) => n * n;
+
+<span class="cmt">// Default parameter</span>
+<span class="kw">const</span> <span class="fn">add</span> = (a, b = <span class="num">0</span>) => a + b;
+
+<span class="fn">console</span>.<span class="fn">log</span>(<span class="fn">greet</span>(<span class="str">"Dev"</span>));  <span class="cmt">// Hello, Dev!</span>
+<span class="fn">console</span>.<span class="fn">log</span>(<span class="fn">square</span>(<span class="num">7</span>));     <span class="cmt">// 49</span>
+<span class="fn">console</span>.<span class="fn">log</span>(<span class="fn">add</span>(<span class="num">5</span>));         <span class="cmt">// 5</span>`
+    },
+    {
+      id: 'arrays',
+      icon: '📋', iconBg: 'rgba(248,113,113,0.15)',
+      title: 'Arrays & Collections',
+      short: 'Work with ordered lists of data.',
+      difficulty: 'beginner',
+      minutes: '12 min read',
+      desc: `Arrays hold ordered collections of values. Mastering array methods like map, filter, and reduce lets you transform data without manual loops — a huge productivity unlock.`,
+      concepts: ['Indexing (0-based)', 'push / pop / shift', 'map, filter, reduce', 'find & includes', 'Spread operator', '2D arrays'],
+      code: `<span class="kw">const</span> nums = [<span class="num">3</span>, <span class="num">1</span>, <span class="num">4</span>, <span class="num">1</span>, <span class="num">5</span>, <span class="num">9</span>];
+
+<span class="cmt">// Double each number</span>
+<span class="kw">const</span> doubled = nums.<span class="fn">map</span>(n => n * <span class="num">2</span>);
+
+<span class="cmt">// Keep only evens</span>
+<span class="kw">const</span> evens = nums.<span class="fn">filter</span>(n => n % <span class="num">2</span> === <span class="num">0</span>);
+
+<span class="cmt">// Sum all</span>
+<span class="kw">const</span> total = nums.<span class="fn">reduce</span>((sum, n) => sum + n, <span class="num">0</span>);
+
+<span class="fn">console</span>.<span class="fn">log</span>(doubled); <span class="cmt">// [6,2,8,2,10,18]</span>
+<span class="fn">console</span>.<span class="fn">log</span>(evens);   <span class="cmt">// [4]</span>
+<span class="fn">console</span>.<span class="fn">log</span>(total);   <span class="cmt">// 23</span>`
+    },
+    {
+      id: 'objects',
+      icon: '🗂️', iconBg: 'rgba(108,142,247,0.15)',
+      title: 'Objects & Key-Value Pairs',
+      short: 'Model real-world entities with structured data.',
+      difficulty: 'intermediate',
+      minutes: '15 min read',
+      desc: `Objects store data as key-value pairs, letting you group related properties together. They're the backbone of JavaScript and most modern data formats (like JSON).`,
+      concepts: ['Property access (dot vs bracket)', 'Nested objects', 'Object destructuring', 'Spread & rest', 'Object methods', 'JSON serialization'],
+      code: `<span class="kw">const</span> user = {
+  name: <span class="str">"Sam"</span>,
+  age: <span class="num">30</span>,
+  <span class="fn">greet</span>() {
+    <span class="kw">return</span> <span class="str">`Hi, I'm ${<span class="kw">this</span>.name}`</span>;
+  }
+};
+
+<span class="cmt">// Destructure</span>
+<span class="kw">const</span> { name, age } = user;
+
+<span class="cmt">// Spread to copy + extend</span>
+<span class="kw">const</span> admin = { ...user, role: <span class="str">"admin"</span> };
+
+<span class="fn">console</span>.<span class="fn">log</span>(user.<span class="fn">greet</span>()); <span class="cmt">// Hi, I'm Sam</span>
+<span class="fn">console</span>.<span class="fn">log</span>(admin.role);  <span class="cmt">// admin</span>`
+    },
+    {
+      id: 'oop',
+      icon: '🏗️', iconBg: 'rgba(167,139,250,0.15)',
+      title: 'Object-Oriented Programming',
+      short: 'Structure code around classes and objects.',
+      difficulty: 'intermediate',
+      minutes: '20 min read',
+      desc: `OOP organizes code into classes — blueprints for creating objects with shared properties and methods. The four pillars are encapsulation, abstraction, inheritance, and polymorphism.`,
+      concepts: ['Classes & constructors', 'Inheritance (extends)', 'Encapsulation', 'Polymorphism', 'Getters & setters', 'Static methods'],
+      code: `<span class="kw">class</span> <span class="type">Animal</span> {
+  <span class="fn">constructor</span>(name) {
+    <span class="kw">this</span>.name = name;
+  }
+  <span class="fn">speak</span>() {
+    <span class="kw">return</span> <span class="str">`${<span class="kw">this</span>.name} makes a sound`</span>;
+  }
+}
+
+<span class="kw">class</span> <span class="type">Dog</span> <span class="kw">extends</span> <span class="type">Animal</span> {
+  <span class="fn">speak</span>() {
+    <span class="kw">return</span> <span class="str">`${<span class="kw">this</span>.name} barks!`</span>;
+  }
+}
+
+<span class="kw">const</span> d = <span class="kw">new</span> <span class="type">Dog</span>(<span class="str">"Rex"</span>);
+<span class="fn">console</span>.<span class="fn">log</span>(d.<span class="fn">speak</span>()); <span class="cmt">// Rex barks!</span>`
+    },
+    {
+      id: 'algorithms',
+      icon: '🧠', iconBg: 'rgba(52,211,153,0.15)',
+      title: 'Algorithms & Complexity',
+      short: 'Write efficient solutions and understand trade-offs.',
+      difficulty: 'advanced',
+      minutes: '25 min read',
+      desc: `An algorithm is a step-by-step procedure to solve a problem. Big-O notation describes how an algorithm's performance scales with input size — essential for writing fast software.`,
+      concepts: ['Big-O notation', 'O(1), O(n), O(n²)', 'Search algorithms', 'Sorting algorithms', 'Recursion', 'Space vs time trade-offs'],
+      code: `<span class="cmt">// O(n) — linear search</span>
+<span class="kw">function</span> <span class="fn">find</span>(arr, target) {
+  <span class="kw">for</span> (<span class="kw">let</span> i = <span class="num">0</span>; i < arr.length; i++) {
+    <span class="kw">if</span> (arr[i] === target) <span class="kw">return</span> i;
+  }
+  <span class="kw">return</span> -<span class="num">1</span>;
+}
+
+<span class="cmt">// O(log n) — binary search</span>
+<span class="kw">function</span> <span class="fn">binarySearch</span>(arr, t) {
+  <span class="kw">let</span> lo = <span class="num">0</span>, hi = arr.length - <span class="num">1</span>;
+  <span class="kw">while</span> (lo <= hi) {
+    <span class="kw">const</span> mid = (lo + hi) >> <span class="num">1</span>;
+    <span class="kw">if</span> (arr[mid] === t) <span class="kw">return</span> mid;
+    arr[mid] < t ? lo = mid + <span class="num">1</span> : hi = mid - <span class="num">1</span>;
+  }
+  <span class="kw">return</span> -<span class="num">1</span>;
+}`
+    }
+  ];
+
+  const quizData = [
+    { q: 'What keyword declares a variable that cannot be reassigned?', opts: ['let', 'var', 'const', 'static'], answer: 2, exp: '`const` declares a constant binding — it cannot be reassigned after initialization.' },
+    { q: 'What does the === operator check?', opts: ['Value only', 'Type only', 'Value and type', 'Reference equality'], answer: 2, exp: '=== (strict equality) checks both value AND type, unlike == which coerces types.' },
+    { q: 'Which loop is best when the number of iterations is unknown?', opts: ['for loop', 'while loop', 'for...of loop', 'do...while loop'], answer: 1, exp: 'A while loop runs as long as a condition is true — ideal when the count is unknown.' },
+    { q: 'What does a function return if it has no return statement?', opts: ['0', 'null', 'undefined', 'false'], answer: 2, exp: 'Functions with no return statement implicitly return `undefined`.' },
+    { q: 'Which array method creates a new array with transformed elements?', opts: ['filter()', 'find()', 'map()', 'reduce()'], answer: 2, exp: '`map()` applies a function to each element and returns a new array of the same length.' },
+    { q: 'What is the index of the first element in an array?', opts: ['1', '0', '-1', 'undefined'], answer: 1, exp: 'Arrays are zero-indexed — the first element is always at index 0.' },
+    { q: 'What OOP concept allows a class to inherit from another?', opts: ['Encapsulation', 'Polymorphism', 'Abstraction', 'Inheritance'], answer: 3, exp: 'Inheritance lets a class (child) extend another class (parent), reusing and extending its behavior.' },
+    { q: 'What does O(1) mean in Big-O notation?', opts: ['Linear time', 'Constant time', 'Logarithmic time', 'Quadratic time'], answer: 1, exp: 'O(1) means constant time — the operation takes the same time regardless of input size.' },
+    { q: 'Which of the following is a falsy value in JavaScript?', opts: ['"false"', '[]', '0', '{}'], answer: 2, exp: '`0` is falsy. Note: empty strings, null, undefined, and NaN are also falsy — but "false" (string), [], and {} are truthy.' },
+    { q: 'What does the spread operator (...) do with arrays?', opts: ['Sums all elements', 'Spreads elements into a new context', 'Sorts the array', 'Removes duplicates'], answer: 1, exp: 'The spread operator unpacks iterable elements — useful for copying arrays, merging, or passing as arguments.' },
+  ];
+
+  const roadmapData = [
+    { title: 'Variables & Data Types', duration: '~1 day', tags: ['Beginner', 'Essential'], done: true },
+    { title: 'Control Flow (if/else, switch)', duration: '~1 day', tags: ['Beginner', 'Essential'], done: true },
+    { title: 'Loops & Iteration', duration: '~1 day', tags: ['Beginner', 'Essential'], done: false },
+    { title: 'Functions & Scope', duration: '~2 days', tags: ['Beginner', 'Core'], done: false },
+    { title: 'Arrays & Built-in Methods', duration: '~2 days', tags: ['Beginner', 'Core'], done: false },
+    { title: 'Objects & Destructuring', duration: '~2 days', tags: ['Intermediate', 'Core'], done: false },
+    { title: 'Object-Oriented Programming', duration: '~3 days', tags: ['Intermediate', 'Deep dive'], done: false },
+    { title: 'Recursion', duration: '~2 days', tags: ['Intermediate', 'Tricky'], done: false },
+    { title: 'Algorithms & Big-O', duration: '~1 week', tags: ['Advanced', 'Interview prep'], done: false },
+    { title: 'Build a project', duration: 'Ongoing', tags: ['All levels', 'Practice'], done: false },
+  ];
+
+  // ─── RENDER TOPICS ───────────────────────────────────────────────────────────
+
+  const grid = document.getElementById('topicsGrid');
+  const panel = document.getElementById('detailPanel');
+  let activeId = null;
+
+  topics.forEach(t => {
+    const diffMap = { beginner: 'diff-beginner', intermediate: 'diff-intermediate', advanced: 'diff-advanced' };
+    const card = document.createElement('div');
+    card.className = 'topic-card';
+    card.dataset.id = t.id;
+    card.innerHTML = `
+      <div class="topic-icon" style="background:${t.iconBg}">${t.icon}</div>
+      <h3>${t.title}</h3>
+      <p>${t.short}</p>
+      <div class="topic-meta">
+        <span class="difficulty ${diffMap[t.difficulty]}">${t.difficulty}</span>
+        <span>· ${t.minutes}</span>
+      </div>`;
+    card.addEventListener('click', () => openDetail(t));
+    grid.appendChild(card);
+  });
+
+  function openDetail(t) {
+    const diffMap = { beginner: 'diff-beginner', intermediate: 'diff-intermediate', advanced: 'diff-advanced' };
+    // Update active card
+    document.querySelectorAll('.topic-card').forEach(c => c.classList.remove('active'));
+    document.querySelector(`[data-id="${t.id}"]`).classList.add('active');
+
+    document.getElementById('detailTitle').textContent = t.title;
+    document.getElementById('detailMeta').innerHTML = `<span class="difficulty ${diffMap[t.difficulty]}">${t.difficulty}</span>`;
+    document.getElementById('detailDesc').innerHTML = `<p>${t.desc}</p>`;
+    document.getElementById('detailConcepts').innerHTML = t.concepts.map(c => `<li>${c}</li>`).join('');
+    document.getElementById('detailCode').innerHTML = t.code;
+    panel.classList.add('visible');
+    activeId = t.id;
+
+    setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50);
+  }
+
+  function closeDetail() {
+    panel.classList.remove('visible');
+    document.querySelectorAll('.topic-card').forEach(c => c.classList.remove('active'));
+    activeId = null;
+  }
+
+  function copyCode(btn) {
+    const pre = document.getElementById('detailCode');
+    navigator.clipboard.writeText(pre.innerText).then(() => {
+      btn.textContent = 'copied!';
+      setTimeout(() => btn.textContent = 'copy', 1800);
+    });
+  }
+
+  // ─── QUIZ ────────────────────────────────────────────────────────────────────
+
+  let qIdx = 0, score = 0, answered = false;
+
+  function renderQuiz() {
+    const prog = document.getElementById('quizProgress');
+    prog.innerHTML = quizData.map((_, i) => `<div class="quiz-dot ${i < qIdx ? 'done' : i === qIdx ? 'current' : ''}"></div>`).join('');
+
+    const content = document.getElementById('quizContent');
+    if (qIdx >= quizData.length) {
+      const pct = Math.round((score / quizData.length) * 100);
+      const msg = pct === 100 ? '🎉 Perfect score!' : pct >= 70 ? '👏 Well done!' : '📚 Keep studying!';
+      content.innerHTML = `<div class="quiz-score">
+        <div class="score-num">${score}/${quizData.length}</div>
+        <div class="score-label">${msg} (${pct}%)</div>
+        <button class="btn-primary" onclick="restartQuiz()">Try Again</button>
+      </div>`;
+      return;
+    }
+
+    const q = quizData[qIdx];
+    const letters = ['A', 'B', 'C', 'D'];
+    content.innerHTML = `
+      <div class="quiz-q">Q${qIdx + 1}. ${q.q}</div>
+      <div class="quiz-options">
+        ${q.opts.map((o, i) => `<button class="quiz-opt" onclick="answerQuiz(${i})" data-idx="${i}">
+          <span class="opt-indicator">${letters[i]}</span>${o}
+        </button>`).join('')}
+      </div>
+      <div class="quiz-feedback" id="qFeedback"></div>
+      <div class="quiz-nav">
+        <button class="btn-primary" id="nextBtn" onclick="nextQuestion()" style="display:none">
+          ${qIdx < quizData.length - 1 ? 'Next →' : 'See Results'}
+        </button>
+      </div>`;
+    answered = false;
+  }
+
+  function answerQuiz(idx) {
+    if (answered) return;
+    answered = true;
+    const q = quizData[qIdx];
+    const opts = document.querySelectorAll('.quiz-opt');
+    opts.forEach(b => b.disabled = true);
+    const isCorrect = idx === q.answer;
+    if (isCorrect) score++;
+    opts[idx].classList.add(isCorrect ? 'correct' : 'wrong');
+    opts[idx].querySelector('.opt-indicator').textContent = isCorrect ? '✓' : '✕';
+    if (!isCorrect) {
+      opts[q.answer].classList.add('correct');
+      opts[q.answer].querySelector('.opt-indicator').textContent = '✓';
+    }
+    const fb = document.getElementById('qFeedback');
+    fb.textContent = q.exp;
+    fb.className = `quiz-feedback show ${isCorrect ? 'correct-fb' : 'wrong-fb'}`;
+    document.getElementById('nextBtn').style.display = 'inline-flex';
+  }
+
+  function nextQuestion() { qIdx++; renderQuiz(); }
+  function restartQuiz() { qIdx = 0; score = 0; renderQuiz(); }
+
+  renderQuiz();
+
+  // ─── ROADMAP ─────────────────────────────────────────────────────────────────
+
+  const track = document.getElementById('roadmapTrack');
+  roadmapData.forEach(item => {
+    const el = document.createElement('div');
+    el.className = 'roadmap-item';
+    el.innerHTML = `
+      <div class="roadmap-dot ${item.done ? 'done' : ''}"></div>
+      <div class="roadmap-content">
+        <div class="roadmap-top">
+          <span class="roadmap-title">${item.title}</span>
+          <span class="roadmap-duration">${item.duration}</span>
+        </div>
+        <div class="roadmap-tags">${item.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+      </div>`;
+    track.appendChild(el);
+  });
+</script>
+</body>
+</html>
