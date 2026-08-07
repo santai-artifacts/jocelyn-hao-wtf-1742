@@ -111,6 +111,7 @@
       font-weight: 600; cursor: pointer;
       text-decoration: none;
       transition: opacity 0.2s, transform 0.15s;
+      display: inline-flex; align-items: center;
     }
     .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
     .btn-ghost {
@@ -159,7 +160,7 @@
     .topics { padding: 5rem 0; }
     .topics-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap: 1.25rem;
     }
     .topic-card {
@@ -217,8 +218,16 @@
     }
     .detail-close:hover { border-color: var(--primary); color: var(--text); }
     .detail-body { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
-    .detail-desc { color: var(--text-muted); line-height: 1.7; font-size: 0.9rem; }
-    .detail-desc h4 { color: var(--text); font-size: 0.9rem; margin-bottom: 0.5rem; }
+    .detail-desc { color: var(--text-muted); line-height: 1.7; font-size: 0.88rem; }
+    .detail-desc p { margin-bottom: 0.75rem; }
+    .detail-desc p:last-child { margin-bottom: 0; }
+    .detail-desc strong { color: var(--text); }
+    .detail-desc code {
+      font-family: var(--mono); font-size: 0.78rem;
+      color: var(--primary); background: var(--primary-dim);
+      padding: 1px 5px; border-radius: 4px;
+    }
+    .detail-desc h4 { color: var(--text); font-size: 0.9rem; margin-bottom: 0.5rem; margin-top: 1rem; }
     .key-concepts { list-style: none; }
     .key-concepts li {
       display: flex; align-items: baseline; gap: 8px;
@@ -232,7 +241,7 @@
     .code-block {
       background: #0a0c14; border: 1px solid var(--border);
       border-radius: var(--radius-sm); padding: 1.25rem;
-      margin-top: 1rem; overflow-x: auto;
+      overflow-x: auto;
     }
     .code-block-header {
       display: flex; align-items: center; justify-content: space-between;
@@ -281,7 +290,8 @@
       border-radius: var(--radius-sm); padding: 12px 16px;
       cursor: pointer; font-size: 0.875rem; text-align: left;
       transition: border-color 0.2s, background 0.2s;
-      display: flex; align-items: center; gap: 10px;
+      display: flex; align-items: center; gap: 10px; color: var(--text);
+      font-family: var(--sans);
     }
     .quiz-opt:hover:not(:disabled) { border-color: var(--primary); background: var(--primary-dim); }
     .quiz-opt.correct { border-color: var(--green); background: rgba(52,211,153,0.1); }
@@ -337,9 +347,8 @@
     .roadmap-content {
       background: var(--surface); border: 1px solid var(--border);
       border-radius: var(--radius-sm); padding: 1.25rem 1.5rem;
-      cursor: pointer; transition: border-color 0.2s;
+      transition: border-color 0.2s;
     }
-    .roadmap-content:hover { border-color: var(--primary); }
     .roadmap-top { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
     .roadmap-title { font-weight: 600; font-size: 0.95rem; }
     .roadmap-duration { font-size: 0.75rem; color: var(--text-dim); font-family: var(--mono); }
@@ -358,7 +367,6 @@
       font-size: 0.8rem;
       margin-top: 4rem;
     }
-    footer a { color: var(--primary); text-decoration: none; }
 
     /* RESPONSIVE */
     @media (max-width: 768px) {
@@ -387,7 +395,7 @@
     <a href="#quiz">Quiz</a>
     <a href="#roadmap">Roadmap</a>
   </div>
-  <span class="nav-badge">Free & Open</span>
+  <span class="nav-badge">Free &amp; Open</span>
 </nav>
 
 <!-- HERO -->
@@ -405,7 +413,7 @@
 <div class="container">
   <div class="stats">
     <div class="stat">
-      <div class="stat-num">8</div>
+      <div class="stat-num">14</div>
       <div class="stat-label">Core Topics</div>
     </div>
     <div class="stat">
@@ -413,7 +421,7 @@
       <div class="stat-label">Quiz Questions</div>
     </div>
     <div class="stat">
-      <div class="stat-num">∞</div>
+      <div class="stat-num">&#8734;</div>
       <div class="stat-label">Things to Build</div>
     </div>
   </div>
@@ -423,7 +431,7 @@
 <section class="topics" id="topics">
   <div class="container">
     <div class="section-header">
-      <div class="section-tag">// 01 — core concepts</div>
+      <div class="section-tag">// 01 &mdash; core concepts</div>
       <h2>Fundamental Topics</h2>
       <p>Click any card to explore the concept with examples and key takeaways.</p>
     </div>
@@ -434,7 +442,7 @@
           <h3 id="detailTitle"></h3>
           <div id="detailMeta" style="margin-top:6px"></div>
         </div>
-        <button class="detail-close" onclick="closeDetail()">✕</button>
+        <button class="detail-close" onclick="closeDetail()">&#x2715;</button>
       </div>
       <div class="detail-body">
         <div>
@@ -447,7 +455,7 @@
         <div>
           <div class="code-block">
             <div class="code-block-header">
-              <span class="code-lang">example</span>
+              <span class="code-lang">JavaScript</span>
               <button class="code-copy" onclick="copyCode(this)">copy</button>
             </div>
             <pre id="detailCode"></pre>
@@ -462,7 +470,7 @@
 <section class="quiz-section" id="quiz">
   <div class="container">
     <div class="section-header">
-      <div class="section-tag">// 02 — test yourself</div>
+      <div class="section-tag">// 02 &mdash; test yourself</div>
       <h2>Quick Knowledge Check</h2>
       <p>10 questions across all core fundamentals. No account needed.</p>
     </div>
@@ -477,7 +485,7 @@
 <section class="roadmap" id="roadmap">
   <div class="container">
     <div class="section-header">
-      <div class="section-tag">// 03 — your path</div>
+      <div class="section-tag">// 03 &mdash; your path</div>
       <h2>Learning Roadmap</h2>
       <p>A suggested order for working through programming fundamentals from zero to confident.</p>
     </div>
@@ -486,370 +494,334 @@
 </section>
 
 <footer>
-  Built for learners, by learners. &nbsp;·&nbsp; Open source &nbsp;·&nbsp; No tracking
+  Built for learners, by learners &nbsp;&middot;&nbsp; No tracking
 </footer>
 
 <script>
-  // ─── DATA ───────────────────────────────────────────────────────────────────
+  // ─── TOPIC DATA ──────────────────────────────────────────────────────────────
 
-  const topics = [
+  var topics = [
     {
       id: 'variables',
-      icon: '📦', iconBg: 'rgba(108,142,247,0.15)',
-      title: 'Variables & Data Types',
-      short: 'Store and manage information in your programs.',
-      difficulty: 'beginner',
-      minutes: '10 min read',
-      desc: `Variables are named containers that hold values. Every piece of data in a program lives in a variable. Data types tell the computer what kind of value is stored — a number, text, true/false, or more complex structures.`,
-      concepts: ['Integers & floats', 'Strings (text)', 'Booleans', 'Type inference', 'Constants vs variables', 'Null / undefined'],
-      code: `<span class="cmt">// Variables store data</span>
-<span class="kw">let</span> name = <span class="str">"Alice"</span>;        <span class="cmt">// string</span>
-<span class="kw">let</span> age = <span class="num">28</span>;           <span class="cmt">// integer</span>
-<span class="kw">let</span> score = <span class="num">98.5</span>;       <span class="cmt">// float</span>
-<span class="kw">let</span> isActive = <span class="kw">true</span>;   <span class="cmt">// boolean</span>
-<span class="kw">const</span> PI = <span class="num">3.14159</span>;    <span class="cmt">// constant</span>
-
-<span class="cmt">// Reassign a variable</span>
-age = <span class="num">29</span>;
-<span class="fn">console</span>.<span class="fn">log</span>(name, age); <span class="cmt">// Alice 29</span>`
+      icon: '&#x1F4E6;', iconBg: 'rgba(108,142,247,0.15)',
+      title: 'Variables &amp; Data Types',
+      short: 'Store and label every piece of data your program uses.',
+      difficulty: 'beginner', minutes: '10 min read',
+      desc: '<p>A <strong>variable</strong> is a named slot in memory that holds a value. You give it a name so your code can refer to that value later without hardcoding it everywhere.</p><p><strong>Data types</strong> tell the runtime what kind of value is stored &mdash; a number, text, a true/false flag, or the deliberate absence of a value. Getting types right prevents entire classes of bugs.</p><p>Use <code>const</code> by default. Only reach for <code>let</code> when the value must change. Avoid <code>var</code> &mdash; it has confusing scoping rules inherited from early JavaScript.</p>',
+      concepts: ['let vs const vs var', 'Strings &mdash; text in quotes', 'Numbers &mdash; int &amp; float', 'Booleans &mdash; true / false', 'null vs undefined', 'typeof operator'],
+      code: '<span class="cmt">// const &mdash; value never changes</span>\n<span class="kw">const</span> PI = <span class="num">3.14159</span>;\n<span class="kw">const</span> siteName = <span class="str">"DevLearn"</span>;\n\n<span class="cmt">// let &mdash; value may change</span>\n<span class="kw">let</span> score = <span class="num">0</span>;\n<span class="kw">let</span> isLoggedIn = <span class="kw">false</span>;\n\nscore = <span class="num">42</span>;  <span class="cmt">// &#10003; reassignment ok</span>\n<span class="cmt">// PI = 3;  &#10007; TypeError!</span>\n\n<span class="cmt">// Check types at runtime</span>\n<span class="fn">console</span>.<span class="fn">log</span>(<span class="kw">typeof</span> siteName);   <span class="cmt">// "string"</span>\n<span class="fn">console</span>.<span class="fn">log</span>(<span class="kw">typeof</span> score);       <span class="cmt">// "number"</span>\n<span class="fn">console</span>.<span class="fn">log</span>(<span class="kw">typeof</span> isLoggedIn);  <span class="cmt">// "boolean"</span>\n\n<span class="kw">let</span> user = <span class="kw">null</span>;    <span class="cmt">// intentionally empty</span>\n<span class="kw">let</span> data;            <span class="cmt">// undefined &mdash; not yet set</span>'
+    },
+    {
+      id: 'strings',
+      icon: '&#x270F;&#xFE0F;', iconBg: 'rgba(251,191,36,0.15)',
+      title: 'Strings &amp; Text',
+      short: 'Work with text &mdash; the most common data in real apps.',
+      difficulty: 'beginner', minutes: '12 min read',
+      desc: '<p>A <strong>string</strong> is a sequence of characters enclosed in quotes. Strings represent names, messages, URLs, emails &mdash; nearly everything a user sees or types.</p><p><strong>Template literals</strong> (backtick strings) let you embed expressions directly into text with <code>${...}</code>, replacing messy concatenation with readable syntax.</p><p>Strings come with dozens of built-in methods. Most useful: <code>trim()</code>, <code>split()</code>, <code>replace()</code>, <code>includes()</code>, and <code>slice()</code>.</p>',
+      concepts: ['Single, double, and backtick quotes', 'Template literals &amp; interpolation', '.length property', 'toUpperCase / toLowerCase', 'trim, split, join', 'includes, startsWith, endsWith'],
+      code: '<span class="kw">const</span> first = <span class="str">"Ada"</span>;\n<span class="kw">const</span> last  = <span class="str">"Lovelace"</span>;\n\n<span class="cmt">// Template literal (preferred)</span>\n<span class="kw">const</span> full = <span class="str">&#96;${first} ${last}&#96;</span>;\n<span class="fn">console</span>.<span class="fn">log</span>(full);              <span class="cmt">// Ada Lovelace</span>\n<span class="fn">console</span>.<span class="fn">log</span>(full.length);        <span class="cmt">// 11</span>\n<span class="fn">console</span>.<span class="fn">log</span>(full.<span class="fn">toUpperCase</span>()); <span class="cmt">// ADA LOVELACE</span>\n\n<span class="cmt">// Useful methods</span>\n<span class="kw">const</span> raw = <span class="str">"  hello, world  "</span>;\n<span class="fn">console</span>.<span class="fn">log</span>(raw.<span class="fn">trim</span>());        <span class="cmt">// "hello, world"</span>\n<span class="fn">console</span>.<span class="fn">log</span>(raw.<span class="fn">trim</span>().<span class="fn">split</span>(<span class="str">", "</span>)); <span class="cmt">// ["hello","world"]</span>\n\n<span class="cmt">// Check content</span>\n<span class="kw">const</span> email = <span class="str">"user@example.com"</span>;\n<span class="fn">console</span>.<span class="fn">log</span>(email.<span class="fn">includes</span>(<span class="str">"@"</span>));     <span class="cmt">// true</span>\n<span class="fn">console</span>.<span class="fn">log</span>(email.<span class="fn">endsWith</span>(<span class="str">".com"</span>));  <span class="cmt">// true</span>'
+    },
+    {
+      id: 'numbers',
+      icon: '&#x1F9EE;', iconBg: 'rgba(52,211,153,0.15)',
+      title: 'Numbers &amp; Math',
+      short: 'Perform calculations and understand numeric quirks.',
+      difficulty: 'beginner', minutes: '10 min read',
+      desc: '<p>JavaScript has a single <strong>Number</strong> type covering both integers and decimals (64-bit floating point). This causes a famous quirk: <code>0.1 + 0.2 !== 0.3</code> due to binary floating-point precision.</p><p>The built-in <strong>Math</strong> object provides common operations: rounding, power, square root, min/max, random numbers, and trigonometry.</p><p>For financial or high-precision work, always round results with <code>toFixed()</code> or use a dedicated library &mdash; never trust raw floating-point decimals.</p>',
+      concepts: ['Integer vs floating-point', 'NaN &mdash; Not a Number', 'Infinity &amp; -Infinity', 'Math.round / floor / ceil', 'Math.random()', 'parseInt &amp; parseFloat'],
+      code: '<span class="cmt">// Basic arithmetic</span>\n<span class="fn">console</span>.<span class="fn">log</span>(<span class="num">10</span> / <span class="num">3</span>);          <span class="cmt">// 3.3333...</span>\n<span class="fn">console</span>.<span class="fn">log</span>(<span class="num">10</span> % <span class="num">3</span>);          <span class="cmt">// 1 (remainder)</span>\n<span class="fn">console</span>.<span class="fn">log</span>(<span class="num">2</span> ** <span class="num">8</span>);           <span class="cmt">// 256 (exponent)</span>\n\n<span class="cmt">// Floating-point quirk</span>\n<span class="fn">console</span>.<span class="fn">log</span>(<span class="num">0.1</span> + <span class="num">0.2</span>);        <span class="cmt">// 0.30000000000000004</span>\n<span class="fn">console</span>.<span class="fn">log</span>((<span class="num">0.1</span> + <span class="num">0.2</span>).<span class="fn">toFixed</span>(<span class="num">2</span>)); <span class="cmt">// "0.30" &#10003;</span>\n\n<span class="cmt">// Math object</span>\n<span class="fn">console</span>.<span class="fn">log</span>(Math.<span class="fn">round</span>(<span class="num">4.6</span>));  <span class="cmt">// 5</span>\n<span class="fn">console</span>.<span class="fn">log</span>(Math.<span class="fn">max</span>(<span class="num">1</span>,<span class="num">9</span>,<span class="num">3</span>));  <span class="cmt">// 9</span>\n<span class="fn">console</span>.<span class="fn">log</span>(Math.<span class="fn">sqrt</span>(<span class="num">49</span>));    <span class="cmt">// 7</span>\n\n<span class="cmt">// Random integer 1-10</span>\n<span class="kw">const</span> rand = Math.<span class="fn">floor</span>(Math.<span class="fn">random</span>() * <span class="num">10</span>) + <span class="num">1</span>;\n<span class="fn">console</span>.<span class="fn">log</span>(rand);              <span class="cmt">// 1-10</span>'
     },
     {
       id: 'control-flow',
-      icon: '🔀', iconBg: 'rgba(167,139,250,0.15)',
+      icon: '&#x1F500;', iconBg: 'rgba(167,139,250,0.15)',
       title: 'Control Flow',
-      short: 'Make decisions and branch program logic.',
-      difficulty: 'beginner',
-      minutes: '12 min read',
-      desc: `Control flow determines the order in which statements execute. With conditionals (if/else) your program can make decisions. Switch statements handle multiple branches cleanly.`,
-      concepts: ['if / else if / else', 'Comparison operators', 'Logical operators (&&, ||)', 'Switch statements', 'Ternary operator', 'Short-circuit evaluation'],
-      code: `<span class="kw">let</span> score = <span class="num">82</span>;
-
-<span class="kw">if</span> (score >= <span class="num">90</span>) {
-  <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"A"</span>);
-} <span class="kw">else if</span> (score >= <span class="num">80</span>) {
-  <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"B"</span>);   <span class="cmt">// ← runs</span>
-} <span class="kw">else</span> {
-  <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"C or below"</span>);
-}
-
-<span class="cmt">// Ternary shorthand</span>
-<span class="kw">const</span> label = score >= <span class="num">60</span>
-  ? <span class="str">"Pass"</span> : <span class="str">"Fail"</span>; <span class="cmt">// "Pass"</span>`
+      short: 'Make decisions and branch your program\'s logic.',
+      difficulty: 'beginner', minutes: '12 min read',
+      desc: '<p>Without control flow, every program would run top-to-bottom in a straight line. <strong>Conditionals</strong> let you choose different paths depending on data &mdash; the core of making software that responds intelligently.</p><p>The <strong>ternary operator</strong> (<code>condition ? a : b</code>) is a compact one-liner for simple if/else. Use it for two-branch decisions; avoid nesting it &mdash; deeply nested ternaries become unreadable fast.</p><p><strong>Short-circuit evaluation</strong>: <code>&amp;&amp;</code> stops at the first falsy value; <code>||</code> stops at the first truthy. The <code>??</code> (nullish coalescing) operator only falls back on <code>null</code> or <code>undefined</code>.</p>',
+      concepts: ['if / else if / else', '=== strict vs == loose equality', 'Logical: &amp;&amp;  ||  !', 'Ternary: condition ? a : b', 'switch / case / default', 'Nullish coalescing (??)'],
+      code: '<span class="kw">const</span> score = <span class="num">82</span>;\n\n<span class="cmt">// Multi-branch conditional</span>\n<span class="kw">if</span> (score >= <span class="num">90</span>) {\n  <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"A"</span>);\n} <span class="kw">else if</span> (score >= <span class="num">80</span>) {\n  <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"B"</span>);  <span class="cmt">// &#8592; runs</span>\n} <span class="kw">else</span> {\n  <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"C or below"</span>);\n}\n\n<span class="cmt">// Ternary &mdash; compact two-branch</span>\n<span class="kw">const</span> status = score >= <span class="num">60</span> ? <span class="str">"Pass"</span> : <span class="str">"Fail"</span>;\n\n<span class="cmt">// Nullish coalescing &mdash; default if null/undefined</span>\n<span class="kw">const</span> username = <span class="kw">null</span>;\n<span class="kw">const</span> display = username ?? <span class="str">"Guest"</span>; <span class="cmt">// "Guest"</span>\n\n<span class="cmt">// Switch for discrete values</span>\n<span class="kw">switch</span> (display) {\n  <span class="kw">case</span> <span class="str">"Admin"</span>: <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"full access"</span>); <span class="kw">break</span>;\n  <span class="kw">default</span>:      <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"read only"</span>);\n}'
     },
     {
       id: 'loops',
-      icon: '🔁', iconBg: 'rgba(52,211,153,0.15)',
-      title: 'Loops & Iteration',
-      short: 'Repeat actions without repeating code.',
-      difficulty: 'beginner',
-      minutes: '10 min read',
-      desc: `Loops execute a block of code multiple times. Use for loops when you know the count, while loops when you don't, and for...of / forEach for iterating collections.`,
-      concepts: ['for loop', 'while loop', 'do...while', 'for...of (arrays)', 'break & continue', 'Infinite loop pitfalls'],
-      code: `<span class="cmt">// Count 1 to 5</span>
-<span class="kw">for</span> (<span class="kw">let</span> i = <span class="num">1</span>; i <= <span class="num">5</span>; i++) {
-  <span class="fn">console</span>.<span class="fn">log</span>(i);
-}
-
-<span class="cmt">// Loop over an array</span>
-<span class="kw">const</span> fruits = [<span class="str">"apple"</span>, <span class="str">"mango"</span>, <span class="str">"grape"</span>];
-<span class="kw">for</span> (<span class="kw">const</span> fruit <span class="kw">of</span> fruits) {
-  <span class="fn">console</span>.<span class="fn">log</span>(fruit);
-}
-
-<span class="cmt">// While loop</span>
-<span class="kw">let</span> n = <span class="num">10</span>;
-<span class="kw">while</span> (n > <span class="num">0</span>) { n -= <span class="num">3</span>; }
-<span class="fn">console</span>.<span class="fn">log</span>(n); <span class="cmt">// -2</span>`
+      icon: '&#x1F501;', iconBg: 'rgba(52,211,153,0.15)',
+      title: 'Loops &amp; Iteration',
+      short: 'Repeat logic over data without duplicating code.',
+      difficulty: 'beginner', minutes: '10 min read',
+      desc: '<p>Loops let you run the same block of code many times. The three classic forms are <strong>for</strong> (known count), <strong>while</strong> (condition-driven, unknown count), and <strong>do&hellip;while</strong> (always runs at least once).</p><p>For iterating collections, prefer <strong>for&hellip;of</strong> over a traditional index loop &mdash; it is cleaner and less error-prone. Use <strong>map</strong>, <strong>filter</strong>, and <strong>forEach</strong> for array-specific work.</p><p><code>break</code> exits a loop early. <code>continue</code> skips to the next iteration. Both are useful but use them sparingly &mdash; overuse hides logic flow.</p>',
+      concepts: ['for loop (init; condition; update)', 'while loop', 'do&hellip;while', 'for&hellip;of (arrays, strings)', 'break &amp; continue', 'Avoiding infinite loops'],
+      code: '<span class="cmt">// Classic for &mdash; known count</span>\n<span class="kw">for</span> (<span class="kw">let</span> i = <span class="num">1</span>; i <= <span class="num">5</span>; i++) {\n  <span class="fn">console</span>.<span class="fn">log</span>(i);  <span class="cmt">// 1 2 3 4 5</span>\n}\n\n<span class="cmt">// for&hellip;of &mdash; clean array iteration</span>\n<span class="kw">const</span> langs = [<span class="str">"JS"</span>, <span class="str">"Python"</span>, <span class="str">"Rust"</span>];\n<span class="kw">for</span> (<span class="kw">const</span> lang <span class="kw">of</span> langs) {\n  <span class="fn">console</span>.<span class="fn">log</span>(lang);\n}\n\n<span class="cmt">// while &mdash; run until condition false</span>\n<span class="kw">let</span> attempts = <span class="num">3</span>;\n<span class="kw">while</span> (attempts > <span class="num">0</span>) {\n  <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">&#96;${attempts} left&#96;</span>);\n  attempts--;\n}\n\n<span class="cmt">// continue &mdash; skip even numbers</span>\n<span class="kw">for</span> (<span class="kw">let</span> i = <span class="num">1</span>; i <= <span class="num">6</span>; i++) {\n  <span class="kw">if</span> (i % <span class="num">2</span> === <span class="num">0</span>) <span class="kw">continue</span>;\n  <span class="fn">console</span>.<span class="fn">log</span>(i);  <span class="cmt">// 1 3 5</span>\n}'
     },
     {
       id: 'functions',
-      icon: '⚙️', iconBg: 'rgba(251,191,36,0.15)',
+      icon: '&#x2699;&#xFE0F;', iconBg: 'rgba(251,191,36,0.15)',
       title: 'Functions',
-      short: 'Package reusable logic into named blocks.',
-      difficulty: 'beginner',
-      minutes: '15 min read',
-      desc: `Functions are the primary building block of any program. They take inputs (parameters), do work, and return outputs. Good functions do one thing well and have a clear name.`,
-      concepts: ['Parameters & arguments', 'Return values', 'Arrow functions', 'Default parameters', 'Scope & closures', 'Pure vs impure functions'],
-      code: `<span class="cmt">// Classic function</span>
-<span class="kw">function</span> <span class="fn">greet</span>(name) {
-  <span class="kw">return</span> <span class="str">`Hello, ${name}!`</span>;
-}
-
-<span class="cmt">// Arrow function</span>
-<span class="kw">const</span> <span class="fn">square</span> = (n) => n * n;
-
-<span class="cmt">// Default parameter</span>
-<span class="kw">const</span> <span class="fn">add</span> = (a, b = <span class="num">0</span>) => a + b;
-
-<span class="fn">console</span>.<span class="fn">log</span>(<span class="fn">greet</span>(<span class="str">"Dev"</span>));  <span class="cmt">// Hello, Dev!</span>
-<span class="fn">console</span>.<span class="fn">log</span>(<span class="fn">square</span>(<span class="num">7</span>));     <span class="cmt">// 49</span>
-<span class="fn">console</span>.<span class="fn">log</span>(<span class="fn">add</span>(<span class="num">5</span>));         <span class="cmt">// 5</span>`
+      short: 'Name and reuse blocks of logic across your program.',
+      difficulty: 'beginner', minutes: '15 min read',
+      desc: '<p>A <strong>function</strong> is a named, reusable block of code. It takes <em>inputs</em> (parameters), does work, and optionally <em>returns</em> a result. Every well-written program is mostly functions calling other functions.</p><p>The guiding principle: <strong>one function, one job</strong>. If you cannot describe what a function does in one sentence, it probably does too much &mdash; split it.</p><p><strong>Pure functions</strong> always return the same output for the same inputs, with no side effects. They are easiest to test and reason about. Aim for them wherever possible.</p>',
+      concepts: ['Function declaration vs expression', 'Arrow functions (=>)', 'Parameters &amp; default values', 'Return values', 'First-class functions', 'Pure vs side-effect functions'],
+      code: '<span class="cmt">// Declaration &mdash; hoisted to top of scope</span>\n<span class="kw">function</span> <span class="fn">add</span>(a, b = <span class="num">0</span>) {\n  <span class="kw">return</span> a + b;\n}\n\n<span class="cmt">// Expression &mdash; stored in a variable</span>\n<span class="kw">const</span> <span class="fn">multiply</span> = <span class="kw">function</span>(a, b) {\n  <span class="kw">return</span> a * b;\n};\n\n<span class="cmt">// Arrow &mdash; concise, no own "this"</span>\n<span class="kw">const</span> <span class="fn">square</span> = n => n * n;\n\n<span class="cmt">// Higher-order &mdash; takes a function as arg</span>\n<span class="kw">function</span> <span class="fn">applyTwice</span>(fn, x) {\n  <span class="kw">return</span> <span class="fn">fn</span>(<span class="fn">fn</span>(x));\n}\n\n<span class="fn">console</span>.<span class="fn">log</span>(<span class="fn">add</span>(<span class="num">3</span>, <span class="num">4</span>));              <span class="cmt">// 7</span>\n<span class="fn">console</span>.<span class="fn">log</span>(<span class="fn">square</span>(<span class="num">5</span>));             <span class="cmt">// 25</span>\n<span class="fn">console</span>.<span class="fn">log</span>(<span class="fn">applyTwice</span>(<span class="fn">square</span>, <span class="num">3</span>)); <span class="cmt">// 81</span>'
+    },
+    {
+      id: 'scope',
+      icon: '&#x1F52D;', iconBg: 'rgba(248,113,113,0.15)',
+      title: 'Scope &amp; Closures',
+      short: 'Understand where variables live and who can see them.',
+      difficulty: 'intermediate', minutes: '14 min read',
+      desc: '<p><strong>Scope</strong> determines which variables are visible in a given part of your code. Variables declared inside a function are local &mdash; invisible from outside. Variables at the top level are global &mdash; use them sparingly.</p><p>A <strong>closure</strong> is when an inner function &ldquo;remembers&rdquo; variables from its enclosing function even after that outer function has returned. Closures power callbacks, event handlers, and module patterns.</p><p>Understanding scope prevents two of the most common bugs: accidentally mutating a global from inside a function, and being surprised when a variable is not accessible where you expected it.</p>',
+      concepts: ['Global vs local scope', 'Block scope (let/const)', 'Lexical scope', 'Closure &mdash; remembered environment', 'The module pattern', 'Variable shadowing'],
+      code: '<span class="cmt">// Block scope</span>\n<span class="kw">let</span> x = <span class="num">10</span>;           <span class="cmt">// outer</span>\n{\n  <span class="kw">let</span> x = <span class="num">99</span>;         <span class="cmt">// different x in this block</span>\n  <span class="fn">console</span>.<span class="fn">log</span>(x);    <span class="cmt">// 99</span>\n}\n<span class="fn">console</span>.<span class="fn">log</span>(x);      <span class="cmt">// 10 &mdash; outer x unchanged</span>\n\n<span class="cmt">// Closure &mdash; counter factory</span>\n<span class="kw">function</span> <span class="fn">makeCounter</span>() {\n  <span class="kw">let</span> count = <span class="num">0</span>;      <span class="cmt">// private to this call</span>\n  <span class="kw">return</span> () => ++count; <span class="cmt">// inner fn remembers count</span>\n}\n\n<span class="kw">const</span> counter = <span class="fn">makeCounter</span>();\n<span class="fn">console</span>.<span class="fn">log</span>(<span class="fn">counter</span>()); <span class="cmt">// 1</span>\n<span class="fn">console</span>.<span class="fn">log</span>(<span class="fn">counter</span>()); <span class="cmt">// 2</span>\n<span class="fn">console</span>.<span class="fn">log</span>(<span class="fn">counter</span>()); <span class="cmt">// 3</span>'
     },
     {
       id: 'arrays',
-      icon: '📋', iconBg: 'rgba(248,113,113,0.15)',
-      title: 'Arrays & Collections',
-      short: 'Work with ordered lists of data.',
-      difficulty: 'beginner',
-      minutes: '12 min read',
-      desc: `Arrays hold ordered collections of values. Mastering array methods like map, filter, and reduce lets you transform data without manual loops — a huge productivity unlock.`,
-      concepts: ['Indexing (0-based)', 'push / pop / shift', 'map, filter, reduce', 'find & includes', 'Spread operator', '2D arrays'],
-      code: `<span class="kw">const</span> nums = [<span class="num">3</span>, <span class="num">1</span>, <span class="num">4</span>, <span class="num">1</span>, <span class="num">5</span>, <span class="num">9</span>];
-
-<span class="cmt">// Double each number</span>
-<span class="kw">const</span> doubled = nums.<span class="fn">map</span>(n => n * <span class="num">2</span>);
-
-<span class="cmt">// Keep only evens</span>
-<span class="kw">const</span> evens = nums.<span class="fn">filter</span>(n => n % <span class="num">2</span> === <span class="num">0</span>);
-
-<span class="cmt">// Sum all</span>
-<span class="kw">const</span> total = nums.<span class="fn">reduce</span>((sum, n) => sum + n, <span class="num">0</span>);
-
-<span class="fn">console</span>.<span class="fn">log</span>(doubled); <span class="cmt">// [6,2,8,2,10,18]</span>
-<span class="fn">console</span>.<span class="fn">log</span>(evens);   <span class="cmt">// [4]</span>
-<span class="fn">console</span>.<span class="fn">log</span>(total);   <span class="cmt">// 23</span>`
+      icon: '&#x1F4CB;', iconBg: 'rgba(108,142,247,0.15)',
+      title: 'Arrays &amp; Collections',
+      short: 'Work with ordered lists of values efficiently.',
+      difficulty: 'beginner', minutes: '12 min read',
+      desc: '<p>An <strong>array</strong> is an ordered, zero-indexed list. Arrays are the most common data structure you will use &mdash; nearly every real program processes lists of something: users, products, events, messages.</p><p>The modern way to work with arrays is through <strong>higher-order methods</strong>: <code>map</code> transforms each element, <code>filter</code> selects matching elements, <code>reduce</code> aggregates to a single value. Chaining these replaces most manual loops with readable, declarative pipelines.</p><p>Arrays are <em>reference types</em> &mdash; assigning one to a new variable does not copy it. Use <code>[...arr]</code> or <code>arr.slice()</code> for a true shallow copy.</p>',
+      concepts: ['Zero-based indexing', 'push / pop / shift / unshift', 'map &mdash; transform each element', 'filter &mdash; keep matching elements', 'reduce &mdash; aggregate to one value', 'find, some, every, flat'],
+      code: '<span class="kw">const</span> scores = [<span class="num">45</span>, <span class="num">82</span>, <span class="num">91</span>, <span class="num">60</span>, <span class="num">78</span>];\n\n<span class="cmt">// map &mdash; add 5 bonus points</span>\n<span class="kw">const</span> boosted = scores.<span class="fn">map</span>(s => s + <span class="num">5</span>);\n\n<span class="cmt">// filter &mdash; keep passing scores</span>\n<span class="kw">const</span> passing = scores.<span class="fn">filter</span>(s => s >= <span class="num">60</span>);\n\n<span class="cmt">// reduce &mdash; calculate total</span>\n<span class="kw">const</span> total = scores.<span class="fn">reduce</span>((sum, s) => sum + s, <span class="num">0</span>);\n\n<span class="cmt">// find &mdash; first score above 80</span>\n<span class="kw">const</span> first80 = scores.<span class="fn">find</span>(s => s > <span class="num">80</span>);\n\n<span class="fn">console</span>.<span class="fn">log</span>(boosted);  <span class="cmt">// [50,87,96,65,83]</span>\n<span class="fn">console</span>.<span class="fn">log</span>(passing);  <span class="cmt">// [82,91,60,78]</span>\n<span class="fn">console</span>.<span class="fn">log</span>(total);    <span class="cmt">// 356</span>\n<span class="fn">console</span>.<span class="fn">log</span>(first80);  <span class="cmt">// 82</span>'
     },
     {
       id: 'objects',
-      icon: '🗂️', iconBg: 'rgba(108,142,247,0.15)',
-      title: 'Objects & Key-Value Pairs',
-      short: 'Model real-world entities with structured data.',
-      difficulty: 'intermediate',
-      minutes: '15 min read',
-      desc: `Objects store data as key-value pairs, letting you group related properties together. They're the backbone of JavaScript and most modern data formats (like JSON).`,
-      concepts: ['Property access (dot vs bracket)', 'Nested objects', 'Object destructuring', 'Spread & rest', 'Object methods', 'JSON serialization'],
-      code: `<span class="kw">const</span> user = {
-  name: <span class="str">"Sam"</span>,
-  age: <span class="num">30</span>,
-  <span class="fn">greet</span>() {
-    <span class="kw">return</span> <span class="str">`Hi, I'm ${<span class="kw">this</span>.name}`</span>;
-  }
-};
-
-<span class="cmt">// Destructure</span>
-<span class="kw">const</span> { name, age } = user;
-
-<span class="cmt">// Spread to copy + extend</span>
-<span class="kw">const</span> admin = { ...user, role: <span class="str">"admin"</span> };
-
-<span class="fn">console</span>.<span class="fn">log</span>(user.<span class="fn">greet</span>()); <span class="cmt">// Hi, I'm Sam</span>
-<span class="fn">console</span>.<span class="fn">log</span>(admin.role);  <span class="cmt">// admin</span>`
+      icon: '&#x1F5C2;&#xFE0F;', iconBg: 'rgba(167,139,250,0.15)',
+      title: 'Objects &amp; Key-Value Pairs',
+      short: 'Group related data and behaviour into one structure.',
+      difficulty: 'beginner', minutes: '15 min read',
+      desc: '<p>An <strong>object</strong> stores data as named properties &mdash; key/value pairs where keys are strings and values can be anything. Objects model real-world things: a user has a name, email, and role; a product has a title, price, and stock count.</p><p><strong>Destructuring</strong> lets you unpack multiple properties in one line. The <strong>spread operator</strong> (<code>...</code>) lets you copy and merge objects immutably &mdash; essential in React state management and modern JS patterns.</p><p>Objects are <em>reference types</em>. <code>const b = a</code> gives you a second pointer to the <em>same</em> object, not a copy. Use <code>{...obj}</code> for a shallow copy.</p>',
+      concepts: ['Dot vs bracket property access', 'Shorthand property syntax', 'Destructuring assignment', 'Spread to copy &amp; merge', 'Object.keys / values / entries', 'Optional chaining (?.)'],
+      code: '<span class="kw">const</span> user = {\n  name: <span class="str">"Priya"</span>,\n  age: <span class="num">27</span>,\n  role: <span class="str">"editor"</span>\n};\n\n<span class="cmt">// Destructuring</span>\n<span class="kw">const</span> { name, role } = user;\n<span class="fn">console</span>.<span class="fn">log</span>(name, role);  <span class="cmt">// Priya editor</span>\n\n<span class="cmt">// Spread &mdash; immutable update</span>\n<span class="kw">const</span> updated = { ...user, age: <span class="num">28</span> };\n\n<span class="cmt">// Optional chaining &mdash; safe nested access</span>\n<span class="kw">const</span> city = user?.address?.city ?? <span class="str">"Unknown"</span>;\n<span class="fn">console</span>.<span class="fn">log</span>(city);  <span class="cmt">// "Unknown"</span>\n\n<span class="cmt">// Iterate entries</span>\n<span class="fn">Object</span>.<span class="fn">entries</span>(user).<span class="fn">forEach</span>(([k, v]) => {\n  <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">&#96;${k}: ${v}&#96;</span>);\n});'
+    },
+    {
+      id: 'error-handling',
+      icon: '&#x1F6E1;&#xFE0F;', iconBg: 'rgba(248,113,113,0.15)',
+      title: 'Error Handling',
+      short: 'Catch mistakes gracefully instead of crashing.',
+      difficulty: 'intermediate', minutes: '13 min read',
+      desc: '<p>Errors are inevitable &mdash; network requests fail, users enter bad data, APIs change. <strong>Error handling</strong> means your program responds gracefully instead of crashing with an unreadable stack trace.</p><p><code>try/catch/finally</code> is the main tool. Code in <code>try</code> runs normally; if it throws, control jumps to <code>catch</code>; <code>finally</code> always runs &mdash; great for cleanup like closing connections.</p><p>You can <code>throw</code> your own errors with custom messages &mdash; or subclass <code>Error</code> to create domain-specific error types for better diagnostics in large codebases.</p>',
+      concepts: ['try / catch / finally', 'The Error object (.message, .stack)', 'throw &mdash; raising your own errors', 'Custom error classes', 'Error types: TypeError, RangeError', 'Fail fast vs graceful degradation'],
+      code: '<span class="cmt">// Basic try/catch</span>\n<span class="kw">function</span> <span class="fn">divide</span>(a, b) {\n  <span class="kw">if</span> (b === <span class="num">0</span>) <span class="kw">throw new</span> <span class="type">Error</span>(<span class="str">"Division by zero"</span>);\n  <span class="kw">return</span> a / b;\n}\n\n<span class="kw">try</span> {\n  <span class="fn">console</span>.<span class="fn">log</span>(<span class="fn">divide</span>(<span class="num">10</span>, <span class="num">2</span>));  <span class="cmt">// 5</span>\n  <span class="fn">console</span>.<span class="fn">log</span>(<span class="fn">divide</span>(<span class="num">5</span>, <span class="num">0</span>));   <span class="cmt">// throws!</span>\n} <span class="kw">catch</span> (err) {\n  <span class="fn">console</span>.<span class="fn">error</span>(err.message);  <span class="cmt">// Division by zero</span>\n} <span class="kw">finally</span> {\n  <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"always runs"</span>);\n}\n\n<span class="cmt">// Custom error type</span>\n<span class="kw">class</span> <span class="type">ValidationError</span> <span class="kw">extends</span> <span class="type">Error</span> {\n  <span class="fn">constructor</span>(field) {\n    <span class="kw">super</span>(<span class="str">&#96;Invalid field: ${field}&#96;</span>);\n    <span class="kw">this</span>.name = <span class="str">"ValidationError"</span>;\n  }\n}'
     },
     {
       id: 'oop',
-      icon: '🏗️', iconBg: 'rgba(167,139,250,0.15)',
+      icon: '&#x1F3D7;&#xFE0F;', iconBg: 'rgba(108,142,247,0.15)',
       title: 'Object-Oriented Programming',
-      short: 'Structure code around classes and objects.',
-      difficulty: 'intermediate',
-      minutes: '20 min read',
-      desc: `OOP organizes code into classes — blueprints for creating objects with shared properties and methods. The four pillars are encapsulation, abstraction, inheritance, and polymorphism.`,
-      concepts: ['Classes & constructors', 'Inheritance (extends)', 'Encapsulation', 'Polymorphism', 'Getters & setters', 'Static methods'],
-      code: `<span class="kw">class</span> <span class="type">Animal</span> {
-  <span class="fn">constructor</span>(name) {
-    <span class="kw">this</span>.name = name;
-  }
-  <span class="fn">speak</span>() {
-    <span class="kw">return</span> <span class="str">`${<span class="kw">this</span>.name} makes a sound`</span>;
-  }
-}
-
-<span class="kw">class</span> <span class="type">Dog</span> <span class="kw">extends</span> <span class="type">Animal</span> {
-  <span class="fn">speak</span>() {
-    <span class="kw">return</span> <span class="str">`${<span class="kw">this</span>.name} barks!`</span>;
-  }
-}
-
-<span class="kw">const</span> d = <span class="kw">new</span> <span class="type">Dog</span>(<span class="str">"Rex"</span>);
-<span class="fn">console</span>.<span class="fn">log</span>(d.<span class="fn">speak</span>()); <span class="cmt">// Rex barks!</span>`
+      short: 'Model your domain with classes, inheritance, and encapsulation.',
+      difficulty: 'intermediate', minutes: '20 min read',
+      desc: '<p>OOP organises code around <strong>objects</strong> &mdash; bundles of state (properties) and behaviour (methods). A <strong>class</strong> is the blueprint; each <code>new MyClass()</code> call creates an independent instance from that blueprint.</p><p>The four pillars: <strong>Encapsulation</strong> (hide internals), <strong>Abstraction</strong> (expose only what is needed), <strong>Inheritance</strong> (reuse parent behaviour via <code>extends</code>), <strong>Polymorphism</strong> (different classes, same interface).</p><p>OOP shines for modelling real-world hierarchies: UI components, game entities, domain models. For simpler data transformations, plain functions often work better. Know when to reach for each.</p>',
+      concepts: ['class &amp; constructor', 'extends &mdash; inheritance', '#privateField syntax', 'Getters &amp; setters', 'Static methods &amp; properties', 'super() call'],
+      code: '<span class="kw">class</span> <span class="type">Shape</span> {\n  <span class="fn">constructor</span>(color) { <span class="kw">this</span>.color = color; }\n  <span class="fn">area</span>() { <span class="kw">return</span> <span class="num">0</span>; }\n  <span class="fn">describe</span>() {\n    <span class="kw">return</span> <span class="str">&#96;${this.color} shape, area=${this.area()}&#96;</span>;\n  }\n}\n\n<span class="kw">class</span> <span class="type">Circle</span> <span class="kw">extends</span> <span class="type">Shape</span> {\n  #radius;             <span class="cmt">// private field</span>\n  <span class="fn">constructor</span>(color, r) {\n    <span class="kw">super</span>(color);\n    <span class="kw">this</span>.#radius = r;\n  }\n  <span class="fn">area</span>() {\n    <span class="kw">return</span> +(Math.PI * <span class="kw">this</span>.#radius ** <span class="num">2</span>).<span class="fn">toFixed</span>(<span class="num">2</span>);\n  }\n}\n\n<span class="kw">const</span> c = <span class="kw">new</span> <span class="type">Circle</span>(<span class="str">"blue"</span>, <span class="num">5</span>);\n<span class="fn">console</span>.<span class="fn">log</span>(c.<span class="fn">describe</span>()); <span class="cmt">// blue shape, area=78.54</span>'
+    },
+    {
+      id: 'recursion',
+      icon: '&#x1F300;', iconBg: 'rgba(52,211,153,0.15)',
+      title: 'Recursion',
+      short: 'Solve self-similar problems by having functions call themselves.',
+      difficulty: 'intermediate', minutes: '16 min read',
+      desc: '<p><strong>Recursion</strong> is when a function calls itself to solve a smaller version of the same problem. It sounds circular, but with a solid <strong>base case</strong> (a condition that stops the recursion), it elegantly handles problems with self-similar structure: trees, nested folders, mathematical sequences.</p><p>Every recursive solution has two parts: the <strong>base case</strong> (stop here and return a value) and the <strong>recursive case</strong> (reduce the problem and call self). Missing the base case causes a stack overflow.</p><p>Recursion trades iterative complexity for clarity when dealing with nested or tree-like data. For flat repetition, a loop is usually faster and simpler.</p>',
+      concepts: ['Base case &mdash; when to stop', 'Recursive case &mdash; reduce &amp; call self', 'Call stack depth limits', 'Factorial &amp; Fibonacci examples', 'Tree &amp; file system traversal', 'Memoisation to avoid recomputation'],
+      code: '<span class="cmt">// Factorial: n! = n &times; (n-1)!</span>\n<span class="kw">function</span> <span class="fn">factorial</span>(n) {\n  <span class="kw">if</span> (n <= <span class="num">1</span>) <span class="kw">return</span> <span class="num">1</span>;      <span class="cmt">// base case</span>\n  <span class="kw">return</span> n * <span class="fn">factorial</span>(n - <span class="num">1</span>); <span class="cmt">// recursive case</span>\n}\n<span class="fn">console</span>.<span class="fn">log</span>(<span class="fn">factorial</span>(<span class="num">5</span>)); <span class="cmt">// 120</span>\n\n<span class="cmt">// Flatten a nested array</span>\n<span class="kw">function</span> <span class="fn">flatten</span>(arr) {\n  <span class="kw">return</span> arr.<span class="fn">reduce</span>((flat, item) =>\n    flat.<span class="fn">concat</span>(\n      <span class="fn">Array</span>.<span class="fn">isArray</span>(item) ? <span class="fn">flatten</span>(item) : item\n    ), []);\n}\n\n<span class="kw">const</span> nested = [<span class="num">1</span>, [<span class="num">2</span>, [<span class="num">3</span>, [<span class="num">4</span>]]]];\n<span class="fn">console</span>.<span class="fn">log</span>(<span class="fn">flatten</span>(nested)); <span class="cmt">// [1,2,3,4]</span>'
+    },
+    {
+      id: 'async',
+      icon: '&#x23F3;', iconBg: 'rgba(251,191,36,0.15)',
+      title: 'Async Programming',
+      short: 'Handle time-delayed operations without freezing the UI.',
+      difficulty: 'intermediate', minutes: '18 min read',
+      desc: '<p>JavaScript runs on a single thread &mdash; it can only do one thing at a time. <strong>Asynchronous code</strong> lets it kick off slow operations (network requests, timers, file reads) and continue doing other work while waiting, instead of blocking.</p><p><strong>Promises</strong> represent a value that will be available in the future. <strong>async/await</strong> is syntactic sugar that makes promises read like sequential, synchronous code &mdash; far easier than the old callback chain (&ldquo;callback hell&rdquo;).</p><p>Always handle errors in async code. Use <code>try/catch</code> with async/await, or <code>.catch()</code> with raw promises. An unhandled rejection silently swallows bugs.</p>',
+      concepts: ['Synchronous vs asynchronous', 'Callbacks &mdash; the old way', 'Promise &mdash; .then() / .catch()', 'async / await syntax', 'Promise.all &mdash; parallel fetches', 'Error handling in async code'],
+      code: '<span class="cmt">// Fetch data with async/await</span>\n<span class="kw">async function</span> <span class="fn">getUser</span>(id) {\n  <span class="kw">try</span> {\n    <span class="kw">const</span> res = <span class="kw">await</span> <span class="fn">fetch</span>(<span class="str">&#96;/api/users/${id}&#96;</span>);\n    <span class="kw">if</span> (!res.ok) <span class="kw">throw new</span> <span class="type">Error</span>(<span class="str">"Not found"</span>);\n    <span class="kw">const</span> data = <span class="kw">await</span> res.<span class="fn">json</span>();\n    <span class="kw">return</span> data;\n  } <span class="kw">catch</span> (err) {\n    <span class="fn">console</span>.<span class="fn">error</span>(err.message);\n  }\n}\n\n<span class="cmt">// Run multiple fetches in parallel</span>\n<span class="kw">async function</span> <span class="fn">loadDashboard</span>() {\n  <span class="kw">const</span> [user, posts] = <span class="kw">await</span> Promise.<span class="fn">all</span>([\n    <span class="fn">getUser</span>(<span class="num">1</span>),\n    <span class="fn">fetch</span>(<span class="str">"/api/posts"</span>).<span class="fn">then</span>(r => r.<span class="fn">json</span>())\n  ]);\n  <span class="kw">return</span> { user, posts };\n}'
+    },
+    {
+      id: 'data-structures',
+      icon: '&#x1F332;', iconBg: 'rgba(167,139,250,0.15)',
+      title: 'Data Structures',
+      short: 'Choose the right container for the right job.',
+      difficulty: 'intermediate', minutes: '20 min read',
+      desc: '<p>A <strong>data structure</strong> is a way of organising data so it can be accessed and modified efficiently. The structure you choose can make the difference between an operation taking microseconds or minutes at scale.</p><p>Beyond arrays and objects, the most important structures: <strong>Stack</strong> (LIFO &mdash; undo history), <strong>Queue</strong> (FIFO &mdash; task queues), <strong>Map</strong> (key-value with any key type and O(1) lookup), <strong>Set</strong> (unique values only), and <strong>Tree</strong> (hierarchical data like the DOM).</p><p>JavaScript&rsquo;s built-in <code>Map</code> and <code>Set</code> cover most real-world needs beyond arrays, with better performance than plain objects for frequent lookups and insertions.</p>',
+      concepts: ['Stack &mdash; LIFO (push/pop)', 'Queue &mdash; FIFO (shift/push)', 'Map &mdash; O(1) keyed lookup', 'Set &mdash; unique values, fast lookup', 'When to use which structure', 'Time complexity trade-offs'],
+      code: '<span class="cmt">// Stack (LIFO) &mdash; browser back history</span>\n<span class="kw">const</span> history = [];\nhistory.<span class="fn">push</span>(<span class="str">"page1"</span>);\nhistory.<span class="fn">push</span>(<span class="str">"page2"</span>);\n<span class="fn">console</span>.<span class="fn">log</span>(history.<span class="fn">pop</span>()); <span class="cmt">// "page2"</span>\n\n<span class="cmt">// Map &mdash; any type as key, O(1) lookup</span>\n<span class="kw">const</span> cache = <span class="kw">new</span> <span class="type">Map</span>();\ncache.<span class="fn">set</span>(<span class="str">"user:1"</span>, { name: <span class="str">"Ana"</span> });\ncache.<span class="fn">set</span>(<span class="str">"user:2"</span>, { name: <span class="str">"Ben"</span> });\n<span class="fn">console</span>.<span class="fn">log</span>(cache.<span class="fn">get</span>(<span class="str">"user:1"</span>).name); <span class="cmt">// Ana</span>\n\n<span class="cmt">// Set &mdash; unique values only</span>\n<span class="kw">const</span> tags = <span class="kw">new</span> <span class="type">Set</span>([<span class="str">"js"</span>, <span class="str">"web"</span>, <span class="str">"js"</span>]);\n<span class="fn">console</span>.<span class="fn">log</span>([...tags]); <span class="cmt">// ["js","web"]</span>\n\n<span class="cmt">// Queue (FIFO) &mdash; task processing</span>\n<span class="kw">const</span> queue = [<span class="str">"task1"</span>, <span class="str">"task2"</span>];\n<span class="fn">console</span>.<span class="fn">log</span>(queue.<span class="fn">shift</span>()); <span class="cmt">// "task1"</span>'
     },
     {
       id: 'algorithms',
-      icon: '🧠', iconBg: 'rgba(52,211,153,0.15)',
-      title: 'Algorithms & Complexity',
-      short: 'Write efficient solutions and understand trade-offs.',
-      difficulty: 'advanced',
-      minutes: '25 min read',
-      desc: `An algorithm is a step-by-step procedure to solve a problem. Big-O notation describes how an algorithm's performance scales with input size — essential for writing fast software.`,
-      concepts: ['Big-O notation', 'O(1), O(n), O(n²)', 'Search algorithms', 'Sorting algorithms', 'Recursion', 'Space vs time trade-offs'],
-      code: `<span class="cmt">// O(n) — linear search</span>
-<span class="kw">function</span> <span class="fn">find</span>(arr, target) {
-  <span class="kw">for</span> (<span class="kw">let</span> i = <span class="num">0</span>; i < arr.length; i++) {
-    <span class="kw">if</span> (arr[i] === target) <span class="kw">return</span> i;
-  }
-  <span class="kw">return</span> -<span class="num">1</span>;
-}
-
-<span class="cmt">// O(log n) — binary search</span>
-<span class="kw">function</span> <span class="fn">binarySearch</span>(arr, t) {
-  <span class="kw">let</span> lo = <span class="num">0</span>, hi = arr.length - <span class="num">1</span>;
-  <span class="kw">while</span> (lo <= hi) {
-    <span class="kw">const</span> mid = (lo + hi) >> <span class="num">1</span>;
-    <span class="kw">if</span> (arr[mid] === t) <span class="kw">return</span> mid;
-    arr[mid] < t ? lo = mid + <span class="num">1</span> : hi = mid - <span class="num">1</span>;
-  }
-  <span class="kw">return</span> -<span class="num">1</span>;
-}`
+      icon: '&#x1F9E0;', iconBg: 'rgba(52,211,153,0.15)',
+      title: 'Algorithms &amp; Complexity',
+      short: 'Write efficient solutions and measure their performance.',
+      difficulty: 'advanced', minutes: '25 min read',
+      desc: '<p>An <strong>algorithm</strong> is a precise, finite sequence of steps to solve a problem. The same problem can often be solved by many algorithms &mdash; they differ in speed, memory use, and readability.</p><p><strong>Big-O notation</strong> describes how an algorithm&rsquo;s runtime grows as input size (<em>n</em>) increases. O(1) is constant (ideal), O(log n) is excellent, O(n) is linear (acceptable), O(n&sup2;) starts to hurt at scale.</p><p>Sorting and searching are the canonical algorithm families. Beyond those, knowing <strong>dynamic programming</strong> (memoisation to avoid recomputation) and <strong>greedy algorithms</strong> covers most interview and real-world scenarios.</p>',
+      concepts: ['Big-O: O(1) O(log n) O(n) O(n&sup2;)', 'Linear search vs binary search', 'Bubble sort vs merge sort', 'Memoisation (dynamic programming)', 'Space vs time trade-off', 'Best / worst / average case'],
+      code: '<span class="cmt">// O(n) &mdash; linear search</span>\n<span class="kw">function</span> <span class="fn">linearSearch</span>(arr, t) {\n  <span class="kw">for</span> (<span class="kw">let</span> i = <span class="num">0</span>; i < arr.length; i++)\n    <span class="kw">if</span> (arr[i] === t) <span class="kw">return</span> i;\n  <span class="kw">return</span> -<span class="num">1</span>;\n}\n\n<span class="cmt">// O(log n) &mdash; binary search (sorted array)</span>\n<span class="kw">function</span> <span class="fn">binarySearch</span>(arr, t) {\n  <span class="kw">let</span> lo = <span class="num">0</span>, hi = arr.length - <span class="num">1</span>;\n  <span class="kw">while</span> (lo <= hi) {\n    <span class="kw">const</span> mid = (lo + hi) >> <span class="num">1</span>;\n    <span class="kw">if</span> (arr[mid] === t) <span class="kw">return</span> mid;\n    arr[mid] < t ? lo = mid + <span class="num">1</span> : hi = mid - <span class="num">1</span>;\n  }\n  <span class="kw">return</span> -<span class="num">1</span>;\n}\n\n<span class="cmt">// Memoisation &mdash; O(n) Fibonacci</span>\n<span class="kw">const</span> memo = {};\n<span class="kw">function</span> <span class="fn">fib</span>(n) {\n  <span class="kw">if</span> (n <= <span class="num">1</span>) <span class="kw">return</span> n;\n  <span class="kw">return</span> memo[n] ??= <span class="fn">fib</span>(n-<span class="num">1</span>) + <span class="fn">fib</span>(n-<span class="num">2</span>);\n}\n<span class="fn">console</span>.<span class="fn">log</span>(<span class="fn">fib</span>(<span class="num">40</span>)); <span class="cmt">// 102334155 &mdash; instant!</span>'
     }
   ];
 
-  const quizData = [
-    { q: 'What keyword declares a variable that cannot be reassigned?', opts: ['let', 'var', 'const', 'static'], answer: 2, exp: '`const` declares a constant binding — it cannot be reassigned after initialization.' },
-    { q: 'What does the === operator check?', opts: ['Value only', 'Type only', 'Value and type', 'Reference equality'], answer: 2, exp: '=== (strict equality) checks both value AND type, unlike == which coerces types.' },
-    { q: 'Which loop is best when the number of iterations is unknown?', opts: ['for loop', 'while loop', 'for...of loop', 'do...while loop'], answer: 1, exp: 'A while loop runs as long as a condition is true — ideal when the count is unknown.' },
-    { q: 'What does a function return if it has no return statement?', opts: ['0', 'null', 'undefined', 'false'], answer: 2, exp: 'Functions with no return statement implicitly return `undefined`.' },
-    { q: 'Which array method creates a new array with transformed elements?', opts: ['filter()', 'find()', 'map()', 'reduce()'], answer: 2, exp: '`map()` applies a function to each element and returns a new array of the same length.' },
-    { q: 'What is the index of the first element in an array?', opts: ['1', '0', '-1', 'undefined'], answer: 1, exp: 'Arrays are zero-indexed — the first element is always at index 0.' },
-    { q: 'What OOP concept allows a class to inherit from another?', opts: ['Encapsulation', 'Polymorphism', 'Abstraction', 'Inheritance'], answer: 3, exp: 'Inheritance lets a class (child) extend another class (parent), reusing and extending its behavior.' },
-    { q: 'What does O(1) mean in Big-O notation?', opts: ['Linear time', 'Constant time', 'Logarithmic time', 'Quadratic time'], answer: 1, exp: 'O(1) means constant time — the operation takes the same time regardless of input size.' },
-    { q: 'Which of the following is a falsy value in JavaScript?', opts: ['"false"', '[]', '0', '{}'], answer: 2, exp: '`0` is falsy. Note: empty strings, null, undefined, and NaN are also falsy — but "false" (string), [], and {} are truthy.' },
-    { q: 'What does the spread operator (...) do with arrays?', opts: ['Sums all elements', 'Spreads elements into a new context', 'Sorts the array', 'Removes duplicates'], answer: 1, exp: 'The spread operator unpacks iterable elements — useful for copying arrays, merging, or passing as arguments.' },
+  // ─── QUIZ DATA ────────────────────────────────────────────────────────────────
+
+  var quizData = [
+    { q: 'What keyword declares a variable that cannot be reassigned?', opts: ['let', 'var', 'const', 'static'], answer: 2, exp: 'const declares a constant binding. Attempting to reassign it throws a TypeError at runtime.' },
+    { q: 'What does the === operator check?', opts: ['Value only', 'Type only', 'Value and type', 'Reference equality'], answer: 2, exp: '=== (strict equality) checks both value AND type, unlike == which coerces types before comparing.' },
+    { q: 'Which loop is best when the number of iterations is unknown?', opts: ['for loop', 'while loop', 'for...of loop', 'do...while loop'], answer: 1, exp: 'A while loop runs as long as a condition is true — ideal when you don\'t know the count upfront.' },
+    { q: 'What does a function return if it has no return statement?', opts: ['0', 'null', 'undefined', 'false'], answer: 2, exp: 'Functions with no return statement implicitly return undefined.' },
+    { q: 'Which array method creates a NEW array with each element transformed?', opts: ['filter()', 'find()', 'map()', 'reduce()'], answer: 2, exp: 'map() applies a callback to each element and returns a new array of the same length.' },
+    { q: 'What is the index of the FIRST element in an array?', opts: ['1', '0', '-1', 'undefined'], answer: 1, exp: 'Arrays are zero-indexed — the first element is always at index 0.' },
+    { q: 'What OOP concept allows a class to reuse behaviour from another class?', opts: ['Encapsulation', 'Polymorphism', 'Abstraction', 'Inheritance'], answer: 3, exp: 'Inheritance (via extends) lets a child class reuse and override the behaviour of a parent class.' },
+    { q: 'What does O(1) mean in Big-O notation?', opts: ['Linear time', 'Constant time', 'Logarithmic time', 'Quadratic time'], answer: 1, exp: 'O(1) means constant time — the operation takes the same amount of time regardless of input size.' },
+    { q: 'Which of the following is a FALSY value in JavaScript?', opts: ['"false"', '[]', '0', '{}'], answer: 2, exp: '0 is falsy. Note: the string "false", empty arrays [], and empty objects {} are all truthy.' },
+    { q: 'What does async/await do compared to raw Promises?', opts: ['Makes code faster', 'Makes async code read like synchronous code', 'Eliminates all errors', 'Runs code in parallel automatically'], answer: 1, exp: 'async/await is syntactic sugar over Promises. It makes asynchronous code easier to read and write.' }
   ];
 
-  const roadmapData = [
-    { title: 'Variables & Data Types', duration: '~1 day', tags: ['Beginner', 'Essential'], done: true },
-    { title: 'Control Flow (if/else, switch)', duration: '~1 day', tags: ['Beginner', 'Essential'], done: true },
-    { title: 'Loops & Iteration', duration: '~1 day', tags: ['Beginner', 'Essential'], done: false },
-    { title: 'Functions & Scope', duration: '~2 days', tags: ['Beginner', 'Core'], done: false },
-    { title: 'Arrays & Built-in Methods', duration: '~2 days', tags: ['Beginner', 'Core'], done: false },
-    { title: 'Objects & Destructuring', duration: '~2 days', tags: ['Intermediate', 'Core'], done: false },
+  // ─── ROADMAP DATA ─────────────────────────────────────────────────────────────
+
+  var roadmapData = [
+    { title: 'Variables &amp; Data Types', duration: '~1 day', tags: ['Beginner', 'Essential'], done: true },
+    { title: 'Strings &amp; Numbers', duration: '~1 day', tags: ['Beginner', 'Essential'], done: true },
+    { title: 'Control Flow (if/else, switch)', duration: '~1 day', tags: ['Beginner', 'Essential'], done: false },
+    { title: 'Loops &amp; Iteration', duration: '~1 day', tags: ['Beginner', 'Core'], done: false },
+    { title: 'Functions &amp; Scope', duration: '~2 days', tags: ['Beginner', 'Core'], done: false },
+    { title: 'Arrays &amp; Built-in Methods', duration: '~2 days', tags: ['Beginner', 'Core'], done: false },
+    { title: 'Objects &amp; Destructuring', duration: '~2 days', tags: ['Intermediate', 'Core'], done: false },
+    { title: 'Error Handling', duration: '~1 day', tags: ['Intermediate', 'Essential'], done: false },
+    { title: 'Closures &amp; Advanced Functions', duration: '~2 days', tags: ['Intermediate', 'Deep dive'], done: false },
     { title: 'Object-Oriented Programming', duration: '~3 days', tags: ['Intermediate', 'Deep dive'], done: false },
     { title: 'Recursion', duration: '~2 days', tags: ['Intermediate', 'Tricky'], done: false },
-    { title: 'Algorithms & Big-O', duration: '~1 week', tags: ['Advanced', 'Interview prep'], done: false },
-    { title: 'Build a project', duration: 'Ongoing', tags: ['All levels', 'Practice'], done: false },
+    { title: 'Async / Promises / Fetch', duration: '~3 days', tags: ['Intermediate', 'Critical'], done: false },
+    { title: 'Data Structures (Map, Set, Stack)', duration: '~2 days', tags: ['Intermediate', 'Interview prep'], done: false },
+    { title: 'Algorithms &amp; Big-O', duration: '~1 week', tags: ['Advanced', 'Interview prep'], done: false },
+    { title: 'Build a real project', duration: 'Ongoing', tags: ['All levels', 'Practice'], done: false }
   ];
 
-  // ─── RENDER TOPICS ───────────────────────────────────────────────────────────
+  // ─── RENDER TOPICS ────────────────────────────────────────────────────────────
 
-  const grid = document.getElementById('topicsGrid');
-  const panel = document.getElementById('detailPanel');
-  let activeId = null;
+  var grid = document.getElementById('topicsGrid');
+  var panel = document.getElementById('detailPanel');
 
-  topics.forEach(t => {
-    const diffMap = { beginner: 'diff-beginner', intermediate: 'diff-intermediate', advanced: 'diff-advanced' };
-    const card = document.createElement('div');
+  var diffMap = { beginner: 'diff-beginner', intermediate: 'diff-intermediate', advanced: 'diff-advanced' };
+
+  topics.forEach(function(t) {
+    var card = document.createElement('div');
     card.className = 'topic-card';
     card.dataset.id = t.id;
-    card.innerHTML = `
-      <div class="topic-icon" style="background:${t.iconBg}">${t.icon}</div>
-      <h3>${t.title}</h3>
-      <p>${t.short}</p>
-      <div class="topic-meta">
-        <span class="difficulty ${diffMap[t.difficulty]}">${t.difficulty}</span>
-        <span>· ${t.minutes}</span>
-      </div>`;
-    card.addEventListener('click', () => openDetail(t));
+    card.innerHTML =
+      '<div class="topic-icon" style="background:' + t.iconBg + '">' + t.icon + '</div>' +
+      '<h3>' + t.title + '</h3>' +
+      '<p>' + t.short + '</p>' +
+      '<div class="topic-meta">' +
+        '<span class="difficulty ' + diffMap[t.difficulty] + '">' + t.difficulty + '</span>' +
+        '<span>&middot; ' + t.minutes + '</span>' +
+      '</div>';
+    card.addEventListener('click', function() { openDetail(t); });
     grid.appendChild(card);
   });
 
   function openDetail(t) {
-    const diffMap = { beginner: 'diff-beginner', intermediate: 'diff-intermediate', advanced: 'diff-advanced' };
-    // Update active card
-    document.querySelectorAll('.topic-card').forEach(c => c.classList.remove('active'));
-    document.querySelector(`[data-id="${t.id}"]`).classList.add('active');
+    document.querySelectorAll('.topic-card').forEach(function(c) { c.classList.remove('active'); });
+    var activeCard = document.querySelector('[data-id="' + t.id + '"]');
+    if (activeCard) activeCard.classList.add('active');
 
-    document.getElementById('detailTitle').textContent = t.title;
-    document.getElementById('detailMeta').innerHTML = `<span class="difficulty ${diffMap[t.difficulty]}">${t.difficulty}</span>`;
-    document.getElementById('detailDesc').innerHTML = `<p>${t.desc}</p>`;
-    document.getElementById('detailConcepts').innerHTML = t.concepts.map(c => `<li>${c}</li>`).join('');
+    document.getElementById('detailTitle').textContent = t.title.replace(/&amp;/g, '&');
+    document.getElementById('detailMeta').innerHTML = '<span class="difficulty ' + diffMap[t.difficulty] + '">' + t.difficulty + '</span> <span style="color:var(--text-dim);font-size:.8rem">&middot; ' + t.minutes + '</span>';
+    document.getElementById('detailDesc').innerHTML = t.desc;
+    document.getElementById('detailConcepts').innerHTML = t.concepts.map(function(c) { return '<li>' + c + '</li>'; }).join('');
     document.getElementById('detailCode').innerHTML = t.code;
     panel.classList.add('visible');
-    activeId = t.id;
-
-    setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50);
+    setTimeout(function() { panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }, 50);
   }
 
   function closeDetail() {
     panel.classList.remove('visible');
-    document.querySelectorAll('.topic-card').forEach(c => c.classList.remove('active'));
-    activeId = null;
+    document.querySelectorAll('.topic-card').forEach(function(c) { c.classList.remove('active'); });
   }
 
   function copyCode(btn) {
-    const pre = document.getElementById('detailCode');
-    navigator.clipboard.writeText(pre.innerText).then(() => {
+    var pre = document.getElementById('detailCode');
+    navigator.clipboard.writeText(pre.innerText).then(function() {
       btn.textContent = 'copied!';
-      setTimeout(() => btn.textContent = 'copy', 1800);
+      setTimeout(function() { btn.textContent = 'copy'; }, 1800);
     });
   }
 
-  // ─── QUIZ ────────────────────────────────────────────────────────────────────
+  // ─── QUIZ ─────────────────────────────────────────────────────────────────────
 
-  let qIdx = 0, score = 0, answered = false;
+  var qIdx = 0, quizScore = 0, answered = false;
 
   function renderQuiz() {
-    const prog = document.getElementById('quizProgress');
-    prog.innerHTML = quizData.map((_, i) => `<div class="quiz-dot ${i < qIdx ? 'done' : i === qIdx ? 'current' : ''}"></div>`).join('');
+    var prog = document.getElementById('quizProgress');
+    prog.innerHTML = quizData.map(function(_, i) {
+      return '<div class="quiz-dot ' + (i < qIdx ? 'done' : i === qIdx ? 'current' : '') + '"></div>';
+    }).join('');
 
-    const content = document.getElementById('quizContent');
+    var content = document.getElementById('quizContent');
     if (qIdx >= quizData.length) {
-      const pct = Math.round((score / quizData.length) * 100);
-      const msg = pct === 100 ? '🎉 Perfect score!' : pct >= 70 ? '👏 Well done!' : '📚 Keep studying!';
-      content.innerHTML = `<div class="quiz-score">
-        <div class="score-num">${score}/${quizData.length}</div>
-        <div class="score-label">${msg} (${pct}%)</div>
-        <button class="btn-primary" onclick="restartQuiz()">Try Again</button>
-      </div>`;
+      var pct = Math.round((quizScore / quizData.length) * 100);
+      var msg = pct === 100 ? 'Perfect score!' : pct >= 70 ? 'Well done!' : 'Keep studying!';
+      content.innerHTML =
+        '<div class="quiz-score">' +
+          '<div class="score-num">' + quizScore + '/' + quizData.length + '</div>' +
+          '<div class="score-label">' + msg + ' (' + pct + '%)</div>' +
+          '<button class="btn-primary" onclick="restartQuiz()">Try Again</button>' +
+        '</div>';
       return;
     }
 
-    const q = quizData[qIdx];
-    const letters = ['A', 'B', 'C', 'D'];
-    content.innerHTML = `
-      <div class="quiz-q">Q${qIdx + 1}. ${q.q}</div>
-      <div class="quiz-options">
-        ${q.opts.map((o, i) => `<button class="quiz-opt" onclick="answerQuiz(${i})" data-idx="${i}">
-          <span class="opt-indicator">${letters[i]}</span>${o}
-        </button>`).join('')}
-      </div>
-      <div class="quiz-feedback" id="qFeedback"></div>
-      <div class="quiz-nav">
-        <button class="btn-primary" id="nextBtn" onclick="nextQuestion()" style="display:none">
-          ${qIdx < quizData.length - 1 ? 'Next →' : 'See Results'}
-        </button>
-      </div>`;
+    var q = quizData[qIdx];
+    var letters = ['A', 'B', 'C', 'D'];
+    content.innerHTML =
+      '<div class="quiz-q">Q' + (qIdx + 1) + '. ' + q.q + '</div>' +
+      '<div class="quiz-options">' +
+        q.opts.map(function(o, i) {
+          return '<button class="quiz-opt" onclick="answerQuiz(' + i + ')" data-idx="' + i + '">' +
+            '<span class="opt-indicator">' + letters[i] + '</span>' + o + '</button>';
+        }).join('') +
+      '</div>' +
+      '<div class="quiz-feedback" id="qFeedback"></div>' +
+      '<div class="quiz-nav">' +
+        '<button class="btn-primary" id="nextBtn" onclick="nextQuestion()" style="display:none">' +
+          (qIdx < quizData.length - 1 ? 'Next &rarr;' : 'See Results') +
+        '</button>' +
+      '</div>';
     answered = false;
   }
 
   function answerQuiz(idx) {
     if (answered) return;
     answered = true;
-    const q = quizData[qIdx];
-    const opts = document.querySelectorAll('.quiz-opt');
-    opts.forEach(b => b.disabled = true);
-    const isCorrect = idx === q.answer;
-    if (isCorrect) score++;
+    var q = quizData[qIdx];
+    var opts = document.querySelectorAll('.quiz-opt');
+    opts.forEach(function(b) { b.disabled = true; });
+    var isCorrect = idx === q.answer;
+    if (isCorrect) quizScore++;
     opts[idx].classList.add(isCorrect ? 'correct' : 'wrong');
     opts[idx].querySelector('.opt-indicator').textContent = isCorrect ? '✓' : '✕';
     if (!isCorrect) {
       opts[q.answer].classList.add('correct');
       opts[q.answer].querySelector('.opt-indicator').textContent = '✓';
     }
-    const fb = document.getElementById('qFeedback');
+    var fb = document.getElementById('qFeedback');
     fb.textContent = q.exp;
-    fb.className = `quiz-feedback show ${isCorrect ? 'correct-fb' : 'wrong-fb'}`;
+    fb.className = 'quiz-feedback show ' + (isCorrect ? 'correct-fb' : 'wrong-fb');
     document.getElementById('nextBtn').style.display = 'inline-flex';
   }
 
   function nextQuestion() { qIdx++; renderQuiz(); }
-  function restartQuiz() { qIdx = 0; score = 0; renderQuiz(); }
+  function restartQuiz() { qIdx = 0; quizScore = 0; renderQuiz(); }
 
   renderQuiz();
 
-  // ─── ROADMAP ─────────────────────────────────────────────────────────────────
+  // ─── ROADMAP ──────────────────────────────────────────────────────────────────
 
-  const track = document.getElementById('roadmapTrack');
-  roadmapData.forEach(item => {
-    const el = document.createElement('div');
+  var track = document.getElementById('roadmapTrack');
+  roadmapData.forEach(function(item) {
+    var el = document.createElement('div');
     el.className = 'roadmap-item';
-    el.innerHTML = `
-      <div class="roadmap-dot ${item.done ? 'done' : ''}"></div>
-      <div class="roadmap-content">
-        <div class="roadmap-top">
-          <span class="roadmap-title">${item.title}</span>
-          <span class="roadmap-duration">${item.duration}</span>
-        </div>
-        <div class="roadmap-tags">${item.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
-      </div>`;
+    el.innerHTML =
+      '<div class="roadmap-dot ' + (item.done ? 'done' : '') + '"></div>' +
+      '<div class="roadmap-content">' +
+        '<div class="roadmap-top">' +
+          '<span class="roadmap-title">' + item.title + '</span>' +
+          '<span class="roadmap-duration">' + item.duration + '</span>' +
+        '</div>' +
+        '<div class="roadmap-tags">' +
+          item.tags.map(function(t) { return '<span class="tag">' + t + '</span>'; }).join('') +
+        '</div>' +
+      '</div>';
     track.appendChild(el);
   });
 </script>
