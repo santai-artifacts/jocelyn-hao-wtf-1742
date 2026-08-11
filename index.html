@@ -24,10 +24,30 @@
       --text: #e2e8f0;
       --text-muted: #8892b0;
       --text-dim: #4a5568;
+      --nav-bg: rgba(15,17,23,0.85);
+      --code-bg: #0a0c14;
       --radius: 12px;
       --radius-sm: 8px;
       --mono: 'JetBrains Mono', monospace;
       --sans: 'Inter', sans-serif;
+    }
+
+    :root.light {
+      --bg: #f5f7ff;
+      --surface: #ffffff;
+      --surface2: #eef1fb;
+      --border: #d0d8f0;
+      --primary: #4a6ef5;
+      --primary-dim: rgba(74,110,245,0.1);
+      --accent: #7c5ce0;
+      --green: #059669;
+      --yellow: #d97706;
+      --red: #dc2626;
+      --text: #111827;
+      --text-muted: #4b5563;
+      --text-dim: #9ca3af;
+      --nav-bg: rgba(245,247,255,0.88);
+      --code-bg: #1e2235;
     }
 
     html { scroll-behavior: smooth; }
@@ -43,7 +63,7 @@
     /* NAV */
     nav {
       position: sticky; top: 0; z-index: 100;
-      background: rgba(15,17,23,0.85);
+      background: var(--nav-bg);
       backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
       padding: 0 2rem;
@@ -239,7 +259,7 @@
 
     /* CODE BLOCK */
     .code-block {
-      background: #0a0c14; border: 1px solid var(--border);
+      background: var(--code-bg); border: 1px solid var(--border);
       border-radius: var(--radius-sm); padding: 1.25rem;
       overflow-x: auto;
     }
@@ -395,7 +415,14 @@
     <a href="#quiz">Quiz</a>
     <a href="#roadmap">Roadmap</a>
   </div>
-  <span class="nav-badge">Free &amp; Open</span>
+  <div style="display:flex;align-items:center;gap:.75rem">
+    <button id="themeToggle" onclick="toggleTheme()" aria-label="Toggle light/dark mode" style="
+      background:var(--surface2);border:1px solid var(--border);color:var(--text-muted);
+      width:36px;height:36px;border-radius:8px;cursor:pointer;font-size:1rem;
+      display:flex;align-items:center;justify-content:center;transition:border-color .2s,color .2s;
+    ">&#x1F319;</button>
+    <span class="nav-badge">Free &amp; Open</span>
+  </div>
 </nav>
 
 <!-- HERO -->
@@ -804,6 +831,23 @@
   function restartQuiz() { qIdx = 0; quizScore = 0; renderQuiz(); }
 
   renderQuiz();
+
+  // ─── THEME TOGGLE ─────────────────────────────────────────────────────────────
+
+  function toggleTheme() {
+    var isLight = document.documentElement.classList.toggle('light');
+    document.getElementById('themeToggle').innerHTML = isLight ? '&#x1F31E;' : '&#x1F319;';
+    try { localStorage.setItem('theme', isLight ? 'light' : 'dark'); } catch(e) {}
+  }
+
+  (function() {
+    try {
+      if (localStorage.getItem('theme') === 'light') {
+        document.documentElement.classList.add('light');
+        document.getElementById('themeToggle').innerHTML = '&#x1F31E;';
+      }
+    } catch(e) {}
+  })();
 
   // ─── ROADMAP ──────────────────────────────────────────────────────────────────
 
